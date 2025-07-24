@@ -10,31 +10,31 @@ import java.util.*;
 
 public class StaffPairingTable {
     private static final Map<Item, Item> table = new HashMap<>(Map.ofEntries(
-            Map.entry(Items.AIR, ModItems.EMPTY_STAFF),
-            Map.entry(Items.NETHERRACK, ModItems.NETHERRACK_STAFF),
-            Map.entry(Items.END_STONE, ModItems.ENDSTONE_STAFF),
-            Map.entry(Items.TNT, ModItems.TNT_STAFF),
-            Map.entry(Items.ANVIL, ModItems.ANVIL_STAFF),
-            Map.entry(Items.MAGMA_BLOCK, ModItems.MAGMA_BLOCK_STAFF),
+            Map.entry(Items.AIR, ModItems.REGULAR_STAFF),
+            Map.entry(Items.NETHERRACK, ModItems.REGULAR_STAFF_WITH_NETHERRACK_CORE),
+            Map.entry(Items.END_STONE, ModItems.REGULAR_STAFF_WITH_END_STONE_CORE),
+            Map.entry(Items.TNT, ModItems.REGULAR_STAFF_WITH_TNT_CORE),
+            Map.entry(Items.ANVIL, ModItems.REGULAR_STAFF_WITH_ANVIL_CORE),
+            Map.entry(Items.MAGMA_BLOCK, ModItems.REGULAR_STAFF_WITH_MAGMA_BLOCK_CORE),
 
-            Map.entry(Items.OAK_PLANKS, ModItems.OAK_PLANKS_STAFF),
-            Map.entry(Items.SPRUCE_PLANKS, ModItems.SPRUCE_PLANKS_STAFF),
-            Map.entry(Items.BIRCH_PLANKS, ModItems.BIRCH_PLANKS_STAFF),
-            Map.entry(Items.JUNGLE_PLANKS, ModItems.JUNGLE_PLANKS_STAFF),
-            Map.entry(Items.ACACIA_PLANKS, ModItems.ACACIA_PLANKS_STAFF),
-            Map.entry(Items.DARK_OAK_PLANKS, ModItems.DARK_OAK_PLANKS_STAFF),
-            Map.entry(Items.MANGROVE_PLANKS, ModItems.MANGROVE_PLANKS_STAFF),
-            Map.entry(Items.CHERRY_PLANKS, ModItems.CHERRY_PLANKS_STAFF),
-            Map.entry(Items.BAMBOO_PLANKS, ModItems.BAMBOO_PLANKS_STAFF),
-            Map.entry(Items.CRIMSON_PLANKS, ModItems.CRIMSON_PLANKS_STAFF),
-            Map.entry(Items.WARPED_PLANKS, ModItems.WARPED_PLANKS_STAFF),
+            Map.entry(Items.OAK_PLANKS, ModItems.REGULAR_STAFF_WITH_OAK_PLANKS_CORE),
+            Map.entry(Items.SPRUCE_PLANKS, ModItems.REGULAR_STAFF_WITH_SPRUCE_PLANKS_CORE),
+            Map.entry(Items.BIRCH_PLANKS, ModItems.REGULAR_STAFF_WITH_BIRCH_PLANKS_CORE),
+            Map.entry(Items.JUNGLE_PLANKS, ModItems.REGULAR_STAFF_WITH_JUNGLE_PLANKS_CORE),
+            Map.entry(Items.ACACIA_PLANKS, ModItems.REGULAR_STAFF_WITH_ACACIA_PLANKS_CORE),
+            Map.entry(Items.DARK_OAK_PLANKS, ModItems.REGULAR_STAFF_WITH_DARK_OAK_PLANKS_CORE),
+            Map.entry(Items.MANGROVE_PLANKS, ModItems.REGULAR_STAFF_WITH_MANGROVE_PLANKS_CORE),
+            Map.entry(Items.CHERRY_PLANKS, ModItems.REGULAR_STAFF_WITH_CHERRY_PLANKS_CORE),
+            Map.entry(Items.BAMBOO_PLANKS, ModItems.REGULAR_STAFF_WITH_BAMBOO_PLANKS_CORE),
+            Map.entry(Items.CRIMSON_PLANKS, ModItems.REGULAR_STAFF_WITH_CRIMSON_PLANKS_CORE),
+            Map.entry(Items.WARPED_PLANKS, ModItems.REGULAR_STAFF_WITH_WARPED_PLANKS_CORE),
 
-            Map.entry(Items.GLOWSTONE, ModItems.GLOWSTONE_STAFF),
-            Map.entry(Items.BONE_BLOCK, ModItems.BONE_BLOCK_STAFF),
-            Map.entry(Items.BEEHIVE, ModItems.BEEHIVE_STAFF),
-            Map.entry(Items.LAPIS_BLOCK, ModItems.LAPIS_LAZULI_STAFF),
-            Map.entry(Items.BELL, ModItems.BELL_STAFF),
-            Map.entry(Items.TARGET, ModItems.TARGET_STAFF)
+            Map.entry(Items.GLOWSTONE, ModItems.REGULAR_STAFF_WITH_GLOWSTONE_CORE),
+            Map.entry(Items.BONE_BLOCK, ModItems.REGULAR_STAFF_WITH_BONE_BLOCK_CORE),
+            Map.entry(Items.BEEHIVE, ModItems.REGULAR_STAFF_WITH_BEEHIVE_CORE),
+            Map.entry(Items.LAPIS_BLOCK, ModItems.REGULAR_STAFF_WITH_LAPIS_LAZULI_CORE),
+            Map.entry(Items.BELL, ModItems.REGULAR_STAFF_WITH_BELL_CORE),
+            Map.entry(Items.TARGET, ModItems.REGULAR_STAFF_WITH_TARGET_CORE)
     ));
 
     public static void register() {
@@ -47,7 +47,7 @@ public class StaffPairingTable {
                 return entry.getValue();
             }
         }
-        return ModItems.EMPTY_STAFF;
+        return ModItems.REGULAR_STAFF;
     }
 
     public static ItemStack getCoreCorrespondingToStaff(Item staff) {

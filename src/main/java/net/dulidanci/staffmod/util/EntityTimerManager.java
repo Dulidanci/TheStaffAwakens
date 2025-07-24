@@ -1,8 +1,8 @@
 package net.dulidanci.staffmod.util;
 
 import net.dulidanci.staffmod.StaffMod;
-import net.dulidanci.staffmod.item.custom.MagmaBlockStaffItem;
-import net.dulidanci.staffmod.item.custom.TargetStaffItem;
+import net.dulidanci.staffmod.item.cores.MagmaBlockCore;
+import net.dulidanci.staffmod.item.cores.TargetCore;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -61,15 +61,15 @@ public class EntityTimerManager {
      * @param type Stores which action has to be executed when the timer hits zero
      * @value 0 - NoAI turning off
      * <p>
-     *     Called from BellStaffItem
+     *     Called from BellCore
      * </p>
      * @value 1 - Removing fireballs
      * <p>
-     *     Called from MagmaBlockStaffItem
+     *     Called from MagmaBlockCore
      * </p>
      * @value 2 - Remove glowing mob from team
      * <p>
-     *     Called from TargetStaffItem
+     *     Called from TargetCore
      * </p>
      */
     private static void executeTimedAction(Entity entity, int type) {
@@ -79,11 +79,11 @@ public class EntityTimerManager {
             }
         } else if (type == 1) {
             if (entity instanceof FireballEntity fireball) {
-                MagmaBlockStaffItem.removeFireball(fireball);
+                MagmaBlockCore.removeFireball(fireball);
             }
         } else if (type == 2) {
             if (entity instanceof LivingEntity living) {
-                TargetStaffItem.resetTeam(living, living.getWorld());
+                TargetCore.resetTeam(living, living.getWorld());
             }
         }
     }

@@ -1,6 +1,8 @@
 package net.dulidanci.staffmod.item.custom;
 
-public class EmptyStaffItem extends AbstractStaffItem {
+import net.minecraft.item.Item;
+
+public class EmptyStaffItem extends Item {
     public EmptyStaffItem(Settings settings) {
         super(settings);
     }

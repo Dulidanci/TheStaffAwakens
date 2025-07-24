@@ -2,7 +2,7 @@ package net.dulidanci.staffmod.block.custom;
 
 import com.mojang.serialization.MapCodec;
 import net.dulidanci.staffmod.block.entity.StaffUpgradeStationBlockEntity;
-import net.dulidanci.staffmod.item.custom.AbstractStaffItem;
+import net.dulidanci.staffmod.item.custom.DynamicStaffItem;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -62,7 +62,7 @@ public class StaffUpgradeStationBlock extends BlockWithEntity implements BlockEn
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
             StaffUpgradeStationBlockEntity blockEntity = (StaffUpgradeStationBlockEntity) world.getBlockEntity(pos);
-            if (player.getStackInHand(hand).getItem() instanceof AbstractStaffItem) {
+            if (player.getStackInHand(hand).getItem() instanceof DynamicStaffItem) {
                 if (blockEntity.attemptInsertingStaff(player, hand)) {
                     return ActionResult.SUCCESS;
                 }

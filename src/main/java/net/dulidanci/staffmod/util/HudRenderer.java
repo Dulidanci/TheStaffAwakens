@@ -26,7 +26,7 @@ public class HudRenderer {
 
                     context.drawTexture(ICON_TEXTURE, x, y, 0, 0, 16, 16, 16, 16);
 
-                    Pair<Integer, Integer> playerMana = ManaSupplier.tickingPlayerStats(client.player);
+                    Pair<Double, Double> playerMana = ManaSupplier.tickingPlayerStats(client.player);
                     String text = "Mana points: " + playerMana.getA() + " / " + playerMana.getB();
                     context.drawText(client.textRenderer, text, x + 20, y + 4, 0xFFFFFF, true);
                 }

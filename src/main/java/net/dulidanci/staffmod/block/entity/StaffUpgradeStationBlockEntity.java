@@ -2,7 +2,7 @@ package net.dulidanci.staffmod.block.entity;
 
 import net.dulidanci.staffmod.block.ModBlockEntities;
 import net.dulidanci.staffmod.item.ModItems;
-import net.dulidanci.staffmod.item.custom.AbstractStaffItem;
+import net.dulidanci.staffmod.item.custom.DynamicStaffItem;
 import net.dulidanci.staffmod.screen.StaffUpgradeStationEmptyScreenHandler;
 import net.dulidanci.staffmod.screen.StaffUpgradeStationStaffScreenHandler;
 import net.dulidanci.staffmod.util.StaffPairingTable;
@@ -54,7 +54,7 @@ public class StaffUpgradeStationBlockEntity extends BlockEntity implements Exten
     }
 
     public void modifyInventoryBeforeBreaking() {
-        if (inventory.get(STAFF_SLOT).getItem() instanceof AbstractStaffItem && inventory.get(STAFF_SLOT).getItem() != ModItems.EMPTY_STAFF) {
+        if (inventory.get(STAFF_SLOT).getItem() instanceof DynamicStaffItem && inventory.get(STAFF_SLOT).getItem() != ModItems.REGULAR_STAFF) {
             inventory.get(CORE_SLOT).decrement(1);
         }
     }

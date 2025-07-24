@@ -1,85 +1,116 @@
 package net.dulidanci.staffmod.item;
 
 import net.dulidanci.staffmod.StaffMod;
+import net.dulidanci.staffmod.item.cores.CoreTypes;
 import net.dulidanci.staffmod.item.custom.*;
+import net.dulidanci.staffmod.item.staffs.StaffTypes;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class ModItems {
-    public static final Item EMPTY_STAFF = registerItem("empty_staff",
+    public static final ArrayList<DynamicStaffItem> DYNAMIC_STAFFS = new ArrayList<>();
+    public static final Map<StaffTypes, ArrayList<CoreTypes>> STAFF_COMPONENTS_COMPATIBILITY = new HashMap<>();
+
+    public static final Item REGULAR_STAFF = registerItem("regular_staff",
             new EmptyStaffItem(new FabricItemSettings().maxCount(1)));
 
-    public static final Item NETHERRACK_STAFF = registerItem("netherrack_staff",
-            new NetherrackStaffItem(new FabricItemSettings().maxCount(1)));
+    public static final Item REGULAR_STAFF_WITH_NETHERRACK_CORE = registerItem("regular_staff_with_netherrack_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.NETHERRACK.createCore(), StaffTypes.REGULAR.createStaff()));
 
-    public static final Item ENDSTONE_STAFF = registerItem("endstone_staff",
-            new EndstoneStaffItem(new FabricItemSettings().maxCount(1)));
+    public static final Item REGULAR_STAFF_WITH_END_STONE_CORE = registerItem("regular_staff_with_end_stone_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.END_STONE.createCore(), StaffTypes.REGULAR.createStaff()));
 
-    public static final Item TNT_STAFF = registerItem("tnt_staff",
-            new TntStaffItem(new FabricItemSettings().maxCount(1)));
+    public static final Item REGULAR_STAFF_WITH_TNT_CORE = registerItem("regular_staff_with_tnt_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.TNT.createCore(), StaffTypes.REGULAR.createStaff()));
 
-    public static final Item ANVIL_STAFF = registerItem("anvil_staff",
-            new AnvilStaffItem(new FabricItemSettings().maxCount(1)));
+    public static final Item REGULAR_STAFF_WITH_ANVIL_CORE = registerItem("regular_staff_with_anvil_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.ANVIL.createCore(), StaffTypes.REGULAR.createStaff()));
 
-    public static final Item MAGMA_BLOCK_STAFF = registerItem("magma_block_staff",
-            new MagmaBlockStaffItem(new FabricItemSettings().maxCount(1)));
+    public static final Item REGULAR_STAFF_WITH_MAGMA_BLOCK_CORE = registerItem("regular_staff_with_magma_block_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.MAGMA_BLOCK.createCore(), StaffTypes.REGULAR.createStaff()));
 
-    public static final Item ACACIA_PLANKS_STAFF = registerItem("acacia_planks_staff",
-            new PlanksStaffItem(new FabricItemSettings().maxCount(1), Blocks.ACACIA_PLANKS));
+    public static final Item REGULAR_STAFF_WITH_ACACIA_PLANKS_CORE = registerItem("regular_staff_with_acacia_planks_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.ACACIA_PLANKS.createCore(), StaffTypes.REGULAR.createStaff()));
 
-    public static final Item BAMBOO_PLANKS_STAFF = registerItem("bamboo_planks_staff",
-            new PlanksStaffItem(new FabricItemSettings().maxCount(1), Blocks.BAMBOO_PLANKS));
+    public static final Item REGULAR_STAFF_WITH_BAMBOO_PLANKS_CORE = registerItem("regular_staff_with_bamboo_planks_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.BAMBOO_PLANKS.createCore(), StaffTypes.REGULAR.createStaff()));
 
-    public static final Item BIRCH_PLANKS_STAFF = registerItem("birch_planks_staff",
-            new PlanksStaffItem(new FabricItemSettings().maxCount(1), Blocks.BIRCH_PLANKS));
+    public static final Item REGULAR_STAFF_WITH_BIRCH_PLANKS_CORE = registerItem("regular_staff_with_birch_planks_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.BIRCH_PLANKS.createCore(), StaffTypes.REGULAR.createStaff()));
 
-    public static final Item CHERRY_PLANKS_STAFF = registerItem("cherry_planks_staff",
-            new PlanksStaffItem(new FabricItemSettings().maxCount(1), Blocks.CHERRY_PLANKS));
+    public static final Item REGULAR_STAFF_WITH_CHERRY_PLANKS_CORE = registerItem("regular_staff_with_cherry_planks_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.CHERRY_PLANKS.createCore(), StaffTypes.REGULAR.createStaff()));
 
-    public static final Item CRIMSON_PLANKS_STAFF = registerItem("crimson_planks_staff",
-            new PlanksStaffItem(new FabricItemSettings().maxCount(1), Blocks.CRIMSON_PLANKS));
+    public static final Item REGULAR_STAFF_WITH_CRIMSON_PLANKS_CORE = registerItem("regular_staff_with_crimson_planks_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.CRIMSON_PLANKS.createCore(), StaffTypes.REGULAR.createStaff()));
 
-    public static final Item DARK_OAK_PLANKS_STAFF = registerItem("dark_oak_planks_staff",
-            new PlanksStaffItem(new FabricItemSettings().maxCount(1), Blocks.DARK_OAK_PLANKS));
+    public static final Item REGULAR_STAFF_WITH_DARK_OAK_PLANKS_CORE = registerItem("regular_staff_with_dark_oak_planks_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.DARK_OAK_PLANKS.createCore(), StaffTypes.REGULAR.createStaff()));
 
-    public static final Item JUNGLE_PLANKS_STAFF = registerItem("jungle_planks_staff",
-            new PlanksStaffItem(new FabricItemSettings().maxCount(1), Blocks.JUNGLE_PLANKS));
+    public static final Item REGULAR_STAFF_WITH_JUNGLE_PLANKS_CORE = registerItem("regular_staff_with_jungle_planks_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.JUNGLE_PLANKS.createCore(), StaffTypes.REGULAR.createStaff()));
 
-    public static final Item MANGROVE_PLANKS_STAFF = registerItem("mangrove_planks_staff",
-            new PlanksStaffItem(new FabricItemSettings().maxCount(1), Blocks.MANGROVE_PLANKS));
+    public static final Item REGULAR_STAFF_WITH_MANGROVE_PLANKS_CORE = registerItem("regular_staff_with_mangrove_planks_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.MANGROVE_PLANKS.createCore(), StaffTypes.REGULAR.createStaff()));
 
-    public static final Item OAK_PLANKS_STAFF = registerItem("oak_planks_staff",
-            new PlanksStaffItem(new FabricItemSettings().maxCount(1), Blocks.OAK_PLANKS));
+    public static final Item REGULAR_STAFF_WITH_OAK_PLANKS_CORE = registerItem("regular_staff_with_oak_planks_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.OAK_PLANKS.createCore(), StaffTypes.REGULAR.createStaff()));
 
-    public static final Item SPRUCE_PLANKS_STAFF = registerItem("spruce_planks_staff",
-            new PlanksStaffItem(new FabricItemSettings().maxCount(1), Blocks.SPRUCE_PLANKS));
+    public static final Item REGULAR_STAFF_WITH_SPRUCE_PLANKS_CORE = registerItem("regular_staff_with_spruce_planks_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.SPRUCE_PLANKS.createCore(), StaffTypes.REGULAR.createStaff()));
 
-    public static final Item WARPED_PLANKS_STAFF = registerItem("warped_planks_staff",
-            new PlanksStaffItem(new FabricItemSettings().maxCount(1), Blocks.WARPED_PLANKS));
+    public static final Item REGULAR_STAFF_WITH_WARPED_PLANKS_CORE = registerItem("regular_staff_with_warped_planks_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.WARPED_PLANKS.createCore(), StaffTypes.REGULAR.createStaff()));
 
-    public static final Item GLOWSTONE_STAFF = registerItem("glowstone_staff",
-            new GlowstoneStaffItem(new FabricItemSettings().maxCount(1)));
+    public static final Item REGULAR_STAFF_WITH_GLOWSTONE_CORE = registerItem("regular_staff_with_glowstone_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.GLOWSTONE.createCore(), StaffTypes.REGULAR.createStaff()));
 
-    public static final Item LAPIS_LAZULI_STAFF = registerItem("lapis_lazuli_staff",
-            new LapisLazuliStaffItem(new FabricItemSettings().maxCount(1)));
+    public static final Item REGULAR_STAFF_WITH_LAPIS_LAZULI_CORE = registerItem("regular_staff_with_lapis_lazuli_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.LAPIS_LAZULI.createCore(), StaffTypes.REGULAR.createStaff()));
 
-    public static final Item BONE_BLOCK_STAFF = registerItem("bone_block_staff",
-            new BoneBlockStaffItem(new FabricItemSettings().maxCount(1)));
+    public static final Item REGULAR_STAFF_WITH_BONE_BLOCK_CORE = registerItem("regular_staff_with_bone_block_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.BONE_BLOCK.createCore(), StaffTypes.REGULAR.createStaff()));
 
-    public static final Item BEEHIVE_STAFF = registerItem("beehive_staff",
-            new BeehiveStaffItem(new FabricItemSettings().maxCount(1)));
+    public static final Item REGULAR_STAFF_WITH_BEEHIVE_CORE = registerItem("regular_staff_with_beehive_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.BEEHIVE.createCore(), StaffTypes.REGULAR.createStaff()));
 
-    public static final Item BELL_STAFF = registerItem("bell_staff",
-            new BellStaffItem(new FabricItemSettings().maxCount(1)));
+    public static final Item REGULAR_STAFF_WITH_BELL_CORE = registerItem("regular_staff_with_bell_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.BELL.createCore(), StaffTypes.REGULAR.createStaff()));
 
-    public static final Item TARGET_STAFF = registerItem("target_staff",
-            new TargetStaffItem(new FabricItemSettings().maxCount(1)));
+    public static final Item REGULAR_STAFF_WITH_TARGET_CORE = registerItem("regular_staff_with_target_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.TARGET.createCore(), StaffTypes.REGULAR.createStaff()));
+
+    public static final Item LOG_STAFF = registerItem("log_staff",
+            new EmptyStaffItem(new FabricItemSettings().maxCount(1)));
+
+    public static final Item LOG_STAFF_WITH_TNT_CORE = registerItem("log_staff_with_tnt_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.TNT.createCore(), StaffTypes.LOG.createStaff()));
+
+    public static final Item LOG_STAFF_WITH_MAGMA_BLOCK_CORE = registerItem("log_staff_with_magma_block_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.MAGMA_BLOCK.createCore(), StaffTypes.LOG.createStaff()));
+
+    public static final Item LOG_STAFF_WITH_BONE_BLOCK_CORE = registerItem("log_staff_with_bone_block_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.BONE_BLOCK.createCore(), StaffTypes.LOG.createStaff()));
+
+    public static final Item LOG_STAFF_WITH_BEEHIVE_CORE = registerItem("log_staff_with_beehive_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.BEEHIVE.createCore(), StaffTypes.LOG.createStaff()));
+
+    public static final Item LOG_STAFF_WITH_NETHERRACK_CORE = registerItem("log_staff_with_netherrack_core",
+            new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.NETHERRACK.createCore(), StaffTypes.LOG.createStaff()));
 
     private static Item registerItem(String name, Item item) {
+        if (item instanceof DynamicStaffItem dynamicStaffItem) {
+            DYNAMIC_STAFFS.add(dynamicStaffItem);
+            STAFF_COMPONENTS_COMPATIBILITY.putIfAbsent(dynamicStaffItem.getStaff().getType(), new ArrayList<>());
+            STAFF_COMPONENTS_COMPATIBILITY.get(dynamicStaffItem.getStaff().getType()).add(dynamicStaffItem.getCore().getType());
+        }
         return Registry.register(Registries.ITEM, new Identifier(StaffMod.MOD_ID, name), item);
     }
 

@@ -1,9 +1,10 @@
 package net.dulidanci.staffmod.util;
 
 import net.dulidanci.staffmod.StaffMod;
-import net.dulidanci.staffmod.item.ModItems;
-import net.dulidanci.staffmod.item.custom.LapisLazuliStaffItem;
-import net.dulidanci.staffmod.item.custom.PlanksStaffItem;
+import net.dulidanci.staffmod.item.cores.CoreTypes;
+import net.dulidanci.staffmod.item.cores.LapisLazuliCore;
+import net.dulidanci.staffmod.item.cores.PlanksCore;
+import net.dulidanci.staffmod.item.custom.DynamicStaffItem;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.item.Item;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -14,19 +15,19 @@ import java.util.Map;
 import java.util.UUID;
 
 public class PlayerItemTracker {
-    private static final Item[] ITEMS_TO_TRACK = {
-            ModItems.OAK_PLANKS_STAFF,          // 0
-            ModItems.SPRUCE_PLANKS_STAFF,       // 1
-            ModItems.BIRCH_PLANKS_STAFF,        // 2
-            ModItems.JUNGLE_PLANKS_STAFF,       // 3
-            ModItems.ACACIA_PLANKS_STAFF,       // 4
-            ModItems.DARK_OAK_PLANKS_STAFF,     // 5
-            ModItems.MANGROVE_PLANKS_STAFF,     // 6
-            ModItems.CHERRY_PLANKS_STAFF,       // 7
-            ModItems.BAMBOO_PLANKS_STAFF,       // 8
-            ModItems.CRIMSON_PLANKS_STAFF,      // 9
-            ModItems.WARPED_PLANKS_STAFF,       // 10
-            ModItems.LAPIS_LAZULI_STAFF         // 11
+    private static final CoreTypes[] CORES_TO_TRACK = {
+            CoreTypes.OAK_PLANKS,          // 0
+            CoreTypes.SPRUCE_PLANKS,       // 1
+            CoreTypes.BIRCH_PLANKS,        // 2
+            CoreTypes.JUNGLE_PLANKS,       // 3
+            CoreTypes.ACACIA_PLANKS,       // 4
+            CoreTypes.DARK_OAK_PLANKS,     // 5
+            CoreTypes.MANGROVE_PLANKS,     // 6
+            CoreTypes.CHERRY_PLANKS,       // 7
+            CoreTypes.BAMBOO_PLANKS,       // 8
+            CoreTypes.CRIMSON_PLANKS,      // 9
+            CoreTypes.WARPED_PLANKS,       // 10
+            CoreTypes.LAPIS_LAZULI         // 11
     };
     private static final Map<UUID, Pair<Item, Item>> heldItems = new HashMap<>();
 
@@ -64,34 +65,42 @@ public class PlayerItemTracker {
     }
 
     private static int isCheckedItem(Item item) {
-        for (int i = 0; i < ITEMS_TO_TRACK.length; i++) {
-            Item staff = ITEMS_TO_TRACK[i];
-            if (item == staff) {
-                return i;
+        if (item instanceof DynamicStaffItem dynamicStaffItem) {
+            for (int i = 0; i < CORES_TO_TRACK.length; i++) {
+                CoreTypes core = CORES_TO_TRACK[i];
+                if (dynamicStaffItem.getCore().getType().equals(core)) {
+                    return i;
+                }
             }
         }
         return -1;
     }
 
     private static void onItemEquipped(ServerPlayerEntity player, Item item) {
-        if (item instanceof PlanksStaffItem planksStaffItem) {
-            planksStaffItem.generatePreview(player);
-        } else {
-            LapisLazuliStaffItem.levitating(player);
+        if (item instanceof DynamicStaffItem dynamicStaffItem) {
+            if (dynamicStaffItem.getCore() instanceof PlanksCore planksCore) {
+                planksCore.generatePreview(player);
+            } else if (dynamicStaffItem.getCore() instanceof LapisLazuliCore) {
+                LapisLazuliCore.levitating(player);
+            }
         }
     }
 
     private static void whileHoldingItem(ServerPlayerEntity player, Item item) {
-        if (item instanceof PlanksStaffItem planksStaffItem) {
-            planksStaffItem.generatePreview(player);
-        } else {
-            LapisLazuliStaffItem.levitating(player);
+        if (item instanceof DynamicStaffItem dynamicStaffItem) {
+            if (dynamicStaffItem.getCore() instanceof PlanksCore planksCore) {
+                planksCore.generatePreview(player);
+            } else if (dynamicStaffItem.getCore() instanceof LapisLazuliCore) {
+                LapisLazuliCore.levitating(player);
+            }
         }
     }
 
     private static void onItemRemoved(ServerPlayerEntity player, Item item) {
-        if (item instanceof PlanksStaffItem planksStaffItem) {
-            planksStaffItem.removePreview(player);
+        if (item instanceof DynamicStaffItem dynamicStaffItem) {
+            if (dynamicStaffItem.getCore() instanceof PlanksCore planksCore) {
+                planksCore.removePreview(player);
+            }
         }
     }
 }

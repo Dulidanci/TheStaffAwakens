@@ -7,8 +7,10 @@ import net.dulidanci.staffmod.entity.ModEntities;
 import net.dulidanci.staffmod.entity.custom.TrackedAnvilEntity;
 import net.dulidanci.staffmod.item.ModItemGroups;
 import net.dulidanci.staffmod.item.ModItems;
-import net.dulidanci.staffmod.item.custom.BellStaffItem;
-import net.dulidanci.staffmod.item.custom.LapisLazuliStaffItem;
+import net.dulidanci.staffmod.item.cores.BellCore;
+import net.dulidanci.staffmod.item.cores.CoreTypes;
+import net.dulidanci.staffmod.item.cores.LapisLazuliCore;
+import net.dulidanci.staffmod.item.custom.DynamicStaffItem;
 import net.dulidanci.staffmod.screen.ModScreenHandlers;
 import net.dulidanci.staffmod.util.EntityTimerManager;
 import net.dulidanci.staffmod.util.ManaSupplier;
@@ -54,20 +56,21 @@ public class StaffMod implements ModInitializer {
 			if (!world.isClient) {
 				TrackedAnvilEntity.setTargetForAnvils(entity);
 
-				if (player.getMainHandStack().isOf(ModItems.MAGMA_BLOCK_STAFF)) {
-					entity.setOnFireFor(8);
-				}
-				if (player.getMainHandStack().isOf(ModItems.LAPIS_LAZULI_STAFF)) {
-					if (entity instanceof LivingEntity livingEntity) {
-						if (ManaSupplier.manaCheck(player, LapisLazuliStaffItem.manaOnHit)) {
-							livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 600, 0));
+				if (player.getMainHandStack().getItem() instanceof DynamicStaffItem dynamicStaffItem) {
+					if (dynamicStaffItem.getCore().getType().equals(CoreTypes.MAGMA_BLOCK)) {
+						entity.setOnFireFor(8);
+					}
+					if (dynamicStaffItem.getCore().getType().equals(CoreTypes.LAPIS_LAZULI)) {
+						if (entity instanceof LivingEntity livingEntity) {
+							if (ManaSupplier.manaCheck(player, LapisLazuliCore.manaOnHit)) {
+								livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 600, 0));
+								ManaSupplier.decreaseMana(player, LapisLazuliCore.manaOnHit);
+							}
 						}
 					}
-				}
-				if (player.getMainHandStack().isOf(ModItems.BELL_STAFF)) {	
-					if (entity instanceof MobEntity mob) {
-						if (ManaSupplier.manaCheck(player, BellStaffItem.mana)) {
-							BellStaffItem.onHit(mob, world, player);
+					if (dynamicStaffItem.getCore().getType().equals(CoreTypes.BELL)) {
+						if (entity instanceof MobEntity mob) {
+							BellCore.onHit(mob, world, player);
 						}
 					}
 				}

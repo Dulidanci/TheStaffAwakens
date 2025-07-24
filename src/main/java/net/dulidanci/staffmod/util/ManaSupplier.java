@@ -15,10 +15,10 @@ import java.util.Map;
 import java.util.UUID;
 
 public class ManaSupplier {
-    public static Map<UUID, Integer> manaPoints = new HashMap<>();
-    public static Map<UUID, Integer> manaMax = new HashMap<>();
-    private static final int baseMax = 40;
-    private static final int extraPerLevel = 8;
+    public static Map<UUID, Double> manaPoints = new HashMap<>();
+    public static Map<UUID, Double> manaMax = new HashMap<>();
+    private static final double baseMax = 40;
+    private static final double extraPerLevel = 8;
     private static final Map<UUID, Integer> timeLimit = new HashMap<>();
     private static final Map<UUID, Integer> timer = new HashMap<>();
     private static final int baseTime = 80;
@@ -43,7 +43,7 @@ public class ManaSupplier {
         }
     }
 
-    public static Pair<Integer, Integer> tickingPlayerStats(PlayerEntity player) {
+    public static Pair<Double, Double> tickingPlayerStats(PlayerEntity player) {
         manaPoints.putIfAbsent(player.getUuid(), baseMax);
         manaMax.put(player.getUuid(), baseMax + countEnchantmentLevel(player) * extraPerLevel);
         timer.putIfAbsent(player.getUuid(), 0);
@@ -54,24 +54,37 @@ public class ManaSupplier {
         return new Pair<>(manaPoints.get(player.getUuid()), manaMax.get(player.getUuid()));
     }
 
-    public static boolean manaCheck(PlayerEntity player, int cost) {
+    public static boolean manaCheck(PlayerEntity player, double cost) {
         if (player != null) {
             if (player.isCreative()) {
                 return true;
             }
-            for (Map.Entry<UUID, Integer> entry : manaPoints.entrySet()) {
+            for (Map.Entry<UUID, Double> entry : manaPoints.entrySet()) {
                 if (entry.getKey().equals(player.getUuid())) {
-                    int current = entry.getValue();
-                    if (current >= cost) {
-                        entry.setValue(current - cost);
-                        return true;
-                    }
-                    return false;
+                    return entry.getValue() >= cost;
                 }
             }
             manaPoints.put(player.getUuid(), baseMax);
         }
         return false;
+    }
+
+    public static void decreaseMana(PlayerEntity player, double cost) {
+        if (player != null) {
+            if (player.isCreative()) {
+                return;
+            }
+            for (Map.Entry<UUID, Double> entry : manaPoints.entrySet()) {
+                if (entry.getKey().equals(player.getUuid())) {
+                    double current = entry.getValue();
+                    if (current >= cost) {
+                        entry.setValue(current - cost);
+                    }
+                    return;
+                }
+            }
+            manaPoints.put(player.getUuid(), baseMax);
+        }
     }
 
     public static int countEnchantmentLevel(PlayerEntity player) {
