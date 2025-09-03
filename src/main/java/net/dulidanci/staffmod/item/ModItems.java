@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ModItems {
+    public static final ArrayList<Item> STAFFS = new ArrayList<>();
+    public static final ArrayList<EmptyStaffItem> EMPTY_STAFFS = new ArrayList<>();
     public static final ArrayList<DynamicStaffItem> DYNAMIC_STAFFS = new ArrayList<>();
     public static final Map<StaffTypes, ArrayList<CoreTypes>> STAFF_COMPONENTS_COMPATIBILITY = new HashMap<>();
 
@@ -106,7 +108,11 @@ public class ModItems {
             new DynamicStaffItem(new FabricItemSettings().maxCount(1), CoreTypes.NETHERRACK.createCore(), StaffTypes.LOG.createStaff()));
 
     private static Item registerItem(String name, Item item) {
-        if (item instanceof DynamicStaffItem dynamicStaffItem) {
+        if (item instanceof EmptyStaffItem emptyStaffItem) {
+            STAFFS.add(emptyStaffItem);
+            EMPTY_STAFFS.add(emptyStaffItem);
+        } else if (item instanceof DynamicStaffItem dynamicStaffItem) {
+            STAFFS.add(dynamicStaffItem);
             DYNAMIC_STAFFS.add(dynamicStaffItem);
             STAFF_COMPONENTS_COMPATIBILITY.putIfAbsent(dynamicStaffItem.getStaff().getType(), new ArrayList<>());
             STAFF_COMPONENTS_COMPATIBILITY.get(dynamicStaffItem.getStaff().getType()).add(dynamicStaffItem.getCore().getType());

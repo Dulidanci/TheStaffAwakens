@@ -2,5 +2,6 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "staffmod:item/regular_staff"
-  }
+  },
+  "gui_light": "front"
 }

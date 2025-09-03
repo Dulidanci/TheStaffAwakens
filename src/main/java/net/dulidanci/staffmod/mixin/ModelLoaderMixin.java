@@ -1,10 +1,13 @@
 package net.dulidanci.staffmod.mixin;
 
 import net.dulidanci.staffmod.StaffMod;
+import net.dulidanci.staffmod.item.ModItems;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.render.model.json.JsonUnbakedModel;
 import net.minecraft.client.util.ModelIdentifier;
+import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.profiler.Profiler;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,15 +26,25 @@ public abstract class ModelLoaderMixin {
 
     @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/model/ModelLoader;addModel(Lnet/minecraft/client/util/ModelIdentifier;)V",
             ordinal = 3, shift = At.Shift.AFTER))
-    public void addRegularStaff(BlockColors blockColors, Profiler profiler, Map<Identifier, JsonUnbakedModel> jsonUnbakedModels,
-                                Map<Identifier, List<ModelLoader.SourceTrackedData>> blockStates, CallbackInfo ci) {
-        this.addModel(new ModelIdentifier(StaffMod.MOD_ID, "regular_staff_3d", "inventory"));
+    public void addStaffModels(BlockColors blockColors, Profiler profiler, Map<Identifier, JsonUnbakedModel> jsonUnbakedModels,
+                               Map<Identifier, List<ModelLoader.SourceTrackedData>> blockStates, CallbackInfo ci) {
+        for (Item item : ModItems.STAFFS) {
+            Identifier id = Registries.ITEM.getId(item);
+            this.addModel(new ModelIdentifier(id.getNamespace(), id.getPath() + "_3d", "inventory"));
+        }
     }
 
-    @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/model/ModelLoader;addModel(Lnet/minecraft/client/util/ModelIdentifier;)V",
-            ordinal = 3, shift = At.Shift.AFTER))
-    public void addLogStaff(BlockColors blockColors, Profiler profiler, Map<Identifier, JsonUnbakedModel> jsonUnbakedModels,
-                            Map<Identifier, List<ModelLoader.SourceTrackedData>> blockStates, CallbackInfo ci) {
-        this.addModel(new ModelIdentifier(StaffMod.MOD_ID, "log_staff_3d", "inventory"));
-    }
+//    @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/model/ModelLoader;addModel(Lnet/minecraft/client/util/ModelIdentifier;)V",
+//            ordinal = 3, shift = At.Shift.AFTER))
+//    public void addStaffModels(BlockColors blockColors, Profiler profiler, Map<Identifier, JsonUnbakedModel> jsonUnbakedModels,
+//                                Map<Identifier, List<ModelLoader.SourceTrackedData>> blockStates, CallbackInfo ci) {
+//        this.addModel(new ModelIdentifier(StaffMod.MOD_ID, "regular_staff_3d", "inventory"));
+//    }
+//
+//    @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/model/ModelLoader;addModel(Lnet/minecraft/client/util/ModelIdentifier;)V",
+//            ordinal = 3, shift = At.Shift.AFTER))
+//    public void addLogStaff(BlockColors blockColors, Profiler profiler, Map<Identifier, JsonUnbakedModel> jsonUnbakedModels,
+//                            Map<Identifier, List<ModelLoader.SourceTrackedData>> blockStates, CallbackInfo ci) {
+//        this.addModel(new ModelIdentifier(StaffMod.MOD_ID, "log_staff_3d", "inventory"));
+//    }
 }

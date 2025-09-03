@@ -26,9 +26,9 @@ public class ModModelProvider extends FabricModelProvider {
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-        for (DynamicStaffItem dynamicStaffItem : ModItems.DYNAMIC_STAFFS) {
-            registerBuiltinModel(itemModelGenerator, dynamicStaffItem);
-        }
+//        for (DynamicStaffItem dynamicStaffItem : ModItems.DYNAMIC_STAFFS) {
+//            registerBuiltinModel(itemModelGenerator, dynamicStaffItem);
+//        }
     }
 
     private void registerBuiltinModel(ItemModelGenerator itemModelGenerator, Item item) {

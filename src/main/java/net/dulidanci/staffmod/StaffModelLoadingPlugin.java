@@ -1,15 +1,12 @@
 package net.dulidanci.staffmod;
 
 import net.dulidanci.staffmod.item.custom.DynamicStaffItem;
-import net.dulidanci.staffmod.render.model.StaffBakedModel;
 import net.dulidanci.staffmod.render.model.StaffUnbakedModel;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelResolver;
 import net.minecraft.block.Block;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
@@ -25,6 +22,9 @@ public class StaffModelLoadingPlugin implements ModelLoadingPlugin {
             System.out.println(id);
 
             String path = id.getPath().substring("item/".length());
+            boolean is3d = path.endsWith("_3d");
+            if (is3d) path = path.substring(0, path.length() - 3);
+            System.out.println(path);
             Identifier itemId = new Identifier(id.getNamespace(), path);
             System.out.println(itemId);
 
@@ -39,29 +39,12 @@ public class StaffModelLoadingPlugin implements ModelLoadingPlugin {
 
             Item staffItem = dynamicStaffItem.getStaff().getType().getItem();
             Identifier staffId = Registries.ITEM.getId(staffItem);
-            Identifier staffModel2dId = new Identifier(staffId.getNamespace(), "item/" + staffId.getPath());
-            Identifier staffModel3dId = new Identifier(staffId.getNamespace(), "item/" + staffId.getPath() + "_3d");
+            Identifier staffModelId = is3d ? new Identifier(staffId.getNamespace(), "item/" + staffId.getPath() + "_3d") :
+                    new Identifier(staffId.getNamespace(), "item/" + staffId.getPath());
 
-            System.out.println(coreModelId + "; " + staffModel2dId + "; " + staffModel3dId);
+            System.out.println(coreModelId + "; " + staffModelId);
 
-            return new StaffUnbakedModel(staffModel2dId, staffModel3dId, coreModelId);
+            return new StaffUnbakedModel(staffModelId, coreModelId);
         });
     }
-
-//    public StaffBakedModel getStaffModel(DynamicStaffItem dynamicStaffItem, ModelTransformationMode mode) {
-//        Block coreBlock = dynamicStaffItem.getCore().getType().getBlock();
-//        Identifier coreId = Registries.BLOCK.getId(coreBlock);
-//        Identifier coreModelId = new Identifier(coreId.getNamespace(), "block/" + coreId.getPath());
-//
-//        Item staffItem = dynamicStaffItem.getStaff().getType().getItem();
-//        Identifier staffId = Registries.ITEM.getId(staffItem);
-//        Identifier staffModelId = switch (mode) {
-//            case GUI, FIXED -> new Identifier(staffId.getNamespace(), "item/" + staffId.getPath());
-//            default -> new Identifier(staffId.getNamespace(), "item/" + staffId.getPath() + "_3d");
-//        };
-//
-//        StaffUnbakedModel staffUnbakedModel = new StaffUnbakedModel(staffModelId, staffModelId, coreModelId);
-//
-//        return
-//    }
 }
