@@ -36,8 +36,8 @@ public class StaffUnbakedModel implements UnbakedModel {
     @Override
     public StaffBakedModel bake(Baker baker, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
 
-        BakedModel staffBakedModel = baker.getOrLoadModel(staffModelId).bake(baker, textureGetter, rotationContainer, staffModelId);
-        BakedModel coreBakedModel = baker.getOrLoadModel(coreModelId).bake(baker, textureGetter, rotationContainer, coreModelId);
+        BakedModel staffBakedModel = baker.bake(staffModelId, rotationContainer);
+        BakedModel coreBakedModel = baker.bake(coreModelId, rotationContainer);
 
         return new StaffBakedModel(staffBakedModel, coreBakedModel);
     }

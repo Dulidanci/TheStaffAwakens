@@ -22,7 +22,13 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
 
 public class StaffItemRenderer implements BuiltinItemRendererRegistry.DynamicItemRenderer {
+    @Override
+    public void render(ItemStack itemStack, ModelTransformationMode modelTransformationMode, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, int i1) {
+        StaffMod.LOGGER.info("Hi {}", getClass());
+        if (!(itemStack.getItem() instanceof DynamicStaffItem dynamicStaffItem)) return;
+    }
 
+    /*
     @Override
     public void render(ItemStack itemStack, ModelTransformationMode modelTransformationMode, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, int i1) {
         StaffMod.LOGGER.info("Hi {}", getClass());
@@ -70,6 +76,8 @@ public class StaffItemRenderer implements BuiltinItemRendererRegistry.DynamicIte
 //        client.getItemRenderer().renderItem(new ItemStack(coreBlock.asItem()), modelTransformationMode, isLeftHanded, matrixStack, vertexConsumerProvider, i, i1, coreModel);
         matrixStack.pop();
     }
+
+     */
 
 
 /*

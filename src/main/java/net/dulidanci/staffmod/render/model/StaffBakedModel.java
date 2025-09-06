@@ -16,6 +16,7 @@ import net.minecraft.world.BlockRenderView;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -36,22 +37,17 @@ public class StaffBakedModel implements BakedModel, FabricBakedModel {
     @Override
     public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
         staff.emitItemQuads(stack, randomSupplier, context);
-        core.emitItemQuads(stack, randomSupplier, context);
+//        core.emitItemQuads(stack, randomSupplier, context);
     }
 
     @Override
     public void emitBlockQuads(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
-//        staff.emitBlockQuads(blockView, state, pos, randomSupplier, context);
-//        staff3d.emitBlockQuads(blockView, state, pos, randomSupplier, context);
-//        core.emitBlockQuads(blockView, state, pos, randomSupplier, context);
+
     }
 
     @Override
     public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction face, Random random) {
-        List<BakedQuad> quads = new ArrayList<>();
-        quads.addAll(staff.getQuads(state, face, random));
-        quads.addAll(core.getQuads(state, face, random));
-        return quads;
+        return Collections.emptyList();
     }
 
     @Override
@@ -86,6 +82,6 @@ public class StaffBakedModel implements BakedModel, FabricBakedModel {
 
     @Override
     public ModelOverrideList getOverrides() {
-        return ModelOverrideList.EMPTY;
+        return staff.getOverrides();
     }
 }

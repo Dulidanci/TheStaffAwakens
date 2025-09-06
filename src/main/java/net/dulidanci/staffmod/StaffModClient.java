@@ -36,10 +36,9 @@ public class StaffModClient implements ClientModInitializer {
         BlockEntityRendererFactories.register(ModBlockEntities.STAFF_UPGRADE_STATION_BLOCK_ENTITY, StaffUpgradeStationBlockEntityRenderer::new);
 
         StaffMod.LOGGER.info("Attempting dynamic rendering for staffs! Count: {}", ModItems.DYNAMIC_STAFFS.size());
-//        for (Item staff : ModItems.DYNAMIC_STAFFS) {
-//            BuiltinItemRendererRegistry.INSTANCE.register(staff, new StaffItemRenderer());
-//        }
-
+        for (Item staff : ModItems.DYNAMIC_STAFFS) {
+            BuiltinItemRendererRegistry.INSTANCE.register(staff, new StaffItemRenderer());
+        }
         ModelLoadingPlugin.register(new StaffModelLoadingPlugin());
     }
 }
