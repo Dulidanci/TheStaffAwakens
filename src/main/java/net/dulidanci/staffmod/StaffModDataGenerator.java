@@ -16,5 +16,6 @@ public class StaffModDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(ModModelProvider::new);
 		pack.addProvider(ModRecipeProvider::new);
 //		pack.addProvider(ModLanguageProvider::new);
+		pack.addProvider((FabricDataGenerator.Pack.Factory<CoreTextureProvider>) output -> new CoreTextureProvider());
 	}
 }

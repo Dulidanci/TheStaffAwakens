@@ -8,11 +8,11 @@
 		"Dulidanci"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
+		"homepage": "https://modrinth.com/mod/the-staff-awakens",
 		"sources": "https://github.com/Dulidanci/Staff_mod"
 	},
 	"license": "Apache 2.0",
-	"icon": "assets/staffmod/icon.png",
+	"icon": "icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [

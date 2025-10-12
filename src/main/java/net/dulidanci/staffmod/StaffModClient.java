@@ -39,6 +39,6 @@ public class StaffModClient implements ClientModInitializer {
         for (Item staff : ModItems.DYNAMIC_STAFFS) {
             BuiltinItemRendererRegistry.INSTANCE.register(staff, new StaffItemRenderer());
         }
-        ModelLoadingPlugin.register(new StaffModelLoadingPlugin());
+//        ModelLoadingPlugin.register(new StaffModelLoadingPlugin());
     }
 }

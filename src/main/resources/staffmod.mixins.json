@@ -1,13 +1,14 @@
 {
-	"required": true,
-	"package": "net.dulidanci.staffmod.mixin",
-	"compatibilityLevel": "JAVA_17",
-	"client": [
-		"ItemRendererAccessor",
-		"ItemRendererMixin",
-		"ModelLoaderMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	}
+  "required": true,
+  "package": "net.dulidanci.staffmod.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "ItemRendererAccessor",
+    "ItemRendererMixin",
+    "JsonUnbakedModelMixin",
+    "ModelLoaderMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
 }

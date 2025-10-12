@@ -77,7 +77,6 @@
 			}
 		}
 	],
-	"gui_light": "front",
 	"display": {
 		"thirdperson_righthand": {
 			"rotation": [68, 0, 0],
@@ -92,11 +91,14 @@
 		"ground": {
 			"rotation": [0, 0, 90],
 			"translation": [3.5, 1, 1]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 180, 0]
 		}
 	},
 	"groups": [
 		{
-			"name": "staff",
+			"name": "Staff",
 			"origin": [8, 13, 7],
 			"color": 0,
 			"children": [0, 1, 2, 3, 4]

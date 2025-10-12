@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "staffmod:item/regular_staff",
+    "layer1": "staffmod:item/cores/bone_block"
+  }
+}
