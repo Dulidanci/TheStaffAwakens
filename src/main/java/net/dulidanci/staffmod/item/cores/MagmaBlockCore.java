@@ -1,5 +1,7 @@
 package net.dulidanci.staffmod.item.cores;
 
+import net.dulidanci.staffmod.render.model.core.CoreModel;
+import net.dulidanci.staffmod.render.model.core.MagmaBlockCoreModel;
 import net.dulidanci.staffmod.util.EntityTimerManager;
 import net.dulidanci.staffmod.util.ManaSupplier;
 import net.minecraft.entity.Entity;
@@ -7,6 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.FireballEntity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.joml.Vector3f;
 
 public class MagmaBlockCore implements CoreTemplate{
     public static final double mana = 3;
@@ -38,5 +41,10 @@ public class MagmaBlockCore implements CoreTemplate{
     @Override
     public CoreTypes getType() {
         return CoreTypes.MAGMA_BLOCK;
+    }
+
+    @Override
+    public CoreModel getModel(Vector3f cubeOriginPoint) {
+        return new MagmaBlockCoreModel(MagmaBlockCoreModel.getTexturedModelData(cubeOriginPoint).createModel());
     }
 }

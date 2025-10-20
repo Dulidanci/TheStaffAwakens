@@ -6,6 +6,7 @@ import net.minecraft.block.Blocks;
 import java.util.function.Supplier;
 
 public enum CoreTypes {
+    AIR(AirCore::new, Blocks.AIR),
     ANVIL(AnvilCore::new, Blocks.ANVIL),
     BEEHIVE(BeehiveCore::new, Blocks.BEEHIVE),
     BELL(BellCore::new, Blocks.BELL),
@@ -42,7 +43,6 @@ public enum CoreTypes {
     }
 
     public Block getBlock() {
-//        StaffMod.LOGGER.info("Loaded model with id: {}", modelId);
         return block;
     }
 }

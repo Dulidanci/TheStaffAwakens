@@ -1,12 +1,15 @@
 package net.dulidanci.staffmod.item.cores;
 
 import net.dulidanci.staffmod.block.ModBlocks;
+import net.dulidanci.staffmod.render.model.core.CoreModel;
+import net.dulidanci.staffmod.render.model.core.GlowstoneCoreModel;
 import net.dulidanci.staffmod.util.ManaSupplier;
 import net.dulidanci.staffmod.util.ModTags;
 import net.minecraft.block.LightBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.joml.Vector3f;
 
 public class GlowstoneCore implements CoreTemplate{
     public static final double mana = 1;
@@ -36,5 +39,10 @@ public class GlowstoneCore implements CoreTemplate{
     @Override
     public CoreTypes getType() {
         return CoreTypes.GLOWSTONE;
+    }
+
+    @Override
+    public CoreModel getModel(Vector3f cubeOriginPoint) {
+        return new GlowstoneCoreModel(GlowstoneCoreModel.getTexturedModelData(cubeOriginPoint).createModel());
     }
 }

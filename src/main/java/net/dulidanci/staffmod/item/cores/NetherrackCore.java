@@ -1,5 +1,7 @@
 package net.dulidanci.staffmod.item.cores;
 
+import net.dulidanci.staffmod.render.model.core.CoreModel;
+import net.dulidanci.staffmod.render.model.core.NetherrackCoreModel;
 import net.dulidanci.staffmod.util.ManaSupplier;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
@@ -8,6 +10,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.joml.Vector3f;
 
 public class NetherrackCore implements CoreTemplate{
     public static final double mana = 0;
@@ -39,5 +42,10 @@ public class NetherrackCore implements CoreTemplate{
     @Override
     public CoreTypes getType() {
         return CoreTypes.NETHERRACK;
+    }
+
+    @Override
+    public CoreModel getModel(Vector3f cubeOriginPoint) {
+        return new NetherrackCoreModel(NetherrackCoreModel.getTexturedModelData(cubeOriginPoint).createModel());
     }
 }

@@ -13,7 +13,6 @@ import net.dulidanci.staffmod.screen.StaffUpgradeStationStaffScreen;
 import net.dulidanci.staffmod.util.HudRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
@@ -35,10 +34,9 @@ public class StaffModClient implements ClientModInitializer {
 
         BlockEntityRendererFactories.register(ModBlockEntities.STAFF_UPGRADE_STATION_BLOCK_ENTITY, StaffUpgradeStationBlockEntityRenderer::new);
 
-        StaffMod.LOGGER.info("Attempting dynamic rendering for staffs! Count: {}", ModItems.DYNAMIC_STAFFS.size());
-        for (Item staff : ModItems.DYNAMIC_STAFFS) {
+        StaffMod.LOGGER.info("Attempting dynamic rendering for staffs! Count: {}", ModItems.STAFFS.size());
+        for (Item staff : ModItems.STAFFS) {
             BuiltinItemRendererRegistry.INSTANCE.register(staff, new StaffItemRenderer());
         }
-//        ModelLoadingPlugin.register(new StaffModelLoadingPlugin());
     }
 }

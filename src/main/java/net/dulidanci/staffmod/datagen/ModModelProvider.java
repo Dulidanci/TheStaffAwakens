@@ -1,15 +1,14 @@
 package net.dulidanci.staffmod.datagen;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import net.dulidanci.staffmod.StaffMod;
 import net.dulidanci.staffmod.block.ModBlocks;
 import net.dulidanci.staffmod.item.ModItems;
-import net.dulidanci.staffmod.item.custom.DynamicStaffItem;
+import net.dulidanci.staffmod.item.custom.StaffItem;
 import net.dulidanci.staffmod.util.json.JsonBuilder;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.item.Item;
@@ -30,22 +29,36 @@ public class ModModelProvider extends FabricModelProvider {
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-        for (DynamicStaffItem dynamicStaffItem : ModItems.DYNAMIC_STAFFS) {
-            registerDynamicStaffModels(itemModelGenerator, dynamicStaffItem);
+        for (StaffItem staffItem : ModItems.STAFFS) {
+            registerStaffModels(itemModelGenerator, staffItem);
         }
-//        CoreTypes[] coreList = CoreTypes.values();
-//        for (CoreTypes core : coreList) {
-//            Block coreBlock = core.getBlock();
-//            Identifier coreId = Registries.BLOCK.getId(coreBlock);
-//            registerCoreModel(itemModelGenerator, coreId);
-//        }
     }
 
-    private void registerDynamicStaffModels(ItemModelGenerator itemModelGenerator, DynamicStaffItem item) {
+    private void registerStaffModels(ItemModelGenerator itemModelGenerator, StaffItem item) {
+
         Block core = item.getCore().getType().getBlock();
         Identifier coreId = Registries.BLOCK.getId(core);
+
         Item staff = item.getStaff().getType().getItem();
         Identifier staffId = Registries.ITEM.getId(staff);
+
+        if (core == Blocks.AIR) {
+            staffModelWithAir(itemModelGenerator, item, staffId);
+        } else if (staff == ModItems.PERFECTED_STAFF && core != Blocks.BELL) {
+            staffModelWithShiftedCore(itemModelGenerator, item, staffId, coreId);
+        } else {
+            staffModelWithCenteredCore(itemModelGenerator, item, staffId, coreId);
+        }
+
+        itemModelGenerator.writer.accept(
+                new Identifier(StaffMod.MOD_ID, "item/" + Registries.ITEM.getId(item).getPath() + "_3d"),
+                () -> JsonBuilder.create()
+                        .add("parent", "builtin/entity")
+                        .build()
+        );
+    }
+
+    private void staffModelWithCenteredCore(ItemModelGenerator itemModelGenerator, StaffItem item, Identifier staffId, Identifier coreId) {
         itemModelGenerator.writer.accept(
                 new Identifier(StaffMod.MOD_ID, "item/" + Registries.ITEM.getId(item).getPath()),
                 () -> JsonBuilder.create()
@@ -56,23 +69,30 @@ public class ModModelProvider extends FabricModelProvider {
                                 .build())
                         .build()
         );
+
+    }
+
+    private void staffModelWithShiftedCore(ItemModelGenerator itemModelGenerator, StaffItem item, Identifier staffId, Identifier coreId) {
         itemModelGenerator.writer.accept(
-                new Identifier(StaffMod.MOD_ID, "item/" + Registries.ITEM.getId(item).getPath() + "_3d"),
+                new Identifier(StaffMod.MOD_ID, "item/" + Registries.ITEM.getId(item).getPath()),
                 () -> JsonBuilder.create()
-                        .add("parent", "builtin/entity")
+                        .add("parent", "item/generated")
+                        .addObject("textures", JsonBuilder.create()
+                                .add("layer0", StaffMod.MOD_ID + ":item/" + staffId.getPath())
+                                .add("layer1", StaffMod.MOD_ID + ":item/cores/" + coreId.getPath() + "_shifted")
+                                .build())
                         .build()
         );
     }
 
-    private void registerCoreModel(ItemModelGenerator itemModelGenerator, Identifier id) {
-//        Path base = Paths.get("src", "main", "resources", "assets", "staffmod", "display", "core_transformation.json");
-//        JsonObject json = JsonLoader.loadJson(base);
+    private void staffModelWithAir(ItemModelGenerator itemModelGenerator, StaffItem item, Identifier staffId) {
         itemModelGenerator.writer.accept(
-                new Identifier(StaffMod.MOD_ID, "item/cores/" + id.getPath()),
+                new Identifier(StaffMod.MOD_ID, "item/" + Registries.ITEM.getId(item).getPath()),
                 () -> JsonBuilder.create()
-                        .add("parent", "minecraft:block/" + id.getPath())
-                        .add("gui_light", "front")
-//                        .addDisplayFromFile(json)
+                        .add("parent", "item/generated")
+                        .addObject("textures", JsonBuilder.create()
+                                .add("layer0", StaffMod.MOD_ID + ":item/" + staffId.getPath())
+                                .build())
                         .build()
         );
     }

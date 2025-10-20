@@ -4,7 +4,7 @@ import net.dulidanci.staffmod.StaffMod;
 import net.dulidanci.staffmod.item.cores.CoreTypes;
 import net.dulidanci.staffmod.item.cores.LapisLazuliCore;
 import net.dulidanci.staffmod.item.cores.PlanksCore;
-import net.dulidanci.staffmod.item.custom.DynamicStaffItem;
+import net.dulidanci.staffmod.item.custom.StaffItem;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.item.Item;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -65,10 +65,10 @@ public class PlayerItemTracker {
     }
 
     private static int isCheckedItem(Item item) {
-        if (item instanceof DynamicStaffItem dynamicStaffItem) {
+        if (item instanceof StaffItem staffItem) {
             for (int i = 0; i < CORES_TO_TRACK.length; i++) {
                 CoreTypes core = CORES_TO_TRACK[i];
-                if (dynamicStaffItem.getCore().getType().equals(core)) {
+                if (staffItem.getCore().getType().equals(core)) {
                     return i;
                 }
             }
@@ -77,28 +77,28 @@ public class PlayerItemTracker {
     }
 
     private static void onItemEquipped(ServerPlayerEntity player, Item item) {
-        if (item instanceof DynamicStaffItem dynamicStaffItem) {
-            if (dynamicStaffItem.getCore() instanceof PlanksCore planksCore) {
+        if (item instanceof StaffItem staffItem) {
+            if (staffItem.getCore() instanceof PlanksCore planksCore) {
                 planksCore.generatePreview(player);
-            } else if (dynamicStaffItem.getCore() instanceof LapisLazuliCore) {
+            } else if (staffItem.getCore() instanceof LapisLazuliCore) {
                 LapisLazuliCore.levitating(player);
             }
         }
     }
 
     private static void whileHoldingItem(ServerPlayerEntity player, Item item) {
-        if (item instanceof DynamicStaffItem dynamicStaffItem) {
-            if (dynamicStaffItem.getCore() instanceof PlanksCore planksCore) {
+        if (item instanceof StaffItem staffItem) {
+            if (staffItem.getCore() instanceof PlanksCore planksCore) {
                 planksCore.generatePreview(player);
-            } else if (dynamicStaffItem.getCore() instanceof LapisLazuliCore) {
+            } else if (staffItem.getCore() instanceof LapisLazuliCore) {
                 LapisLazuliCore.levitating(player);
             }
         }
     }
 
     private static void onItemRemoved(ServerPlayerEntity player, Item item) {
-        if (item instanceof DynamicStaffItem dynamicStaffItem) {
-            if (dynamicStaffItem.getCore() instanceof PlanksCore planksCore) {
+        if (item instanceof StaffItem staffItem) {
+            if (staffItem.getCore() instanceof PlanksCore planksCore) {
                 planksCore.removePreview(player);
             }
         }

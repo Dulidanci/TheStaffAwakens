@@ -6,7 +6,7 @@ import net.minecraft.item.Item;
 import java.util.function.Supplier;
 
 public enum StaffTypes {
-    REGULAR(RegularStaff::new, () -> ModItems.REGULAR_STAFF),
+    PERFECTED(PerfectedStaff::new, () -> ModItems.PERFECTED_STAFF),
     LOG(LogStaff::new, () -> ModItems.LOG_STAFF);
 
     private final Supplier<StaffTemplate> staffSupplier;

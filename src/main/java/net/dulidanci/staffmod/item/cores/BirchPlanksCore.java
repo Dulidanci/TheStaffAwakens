@@ -1,6 +1,9 @@
 package net.dulidanci.staffmod.item.cores;
 
+import net.dulidanci.staffmod.render.model.core.BirchPlanksCoreModel;
+import net.dulidanci.staffmod.render.model.core.CoreModel;
 import net.minecraft.block.Blocks;
+import org.joml.Vector3f;
 
 public class BirchPlanksCore extends PlanksCore {
     protected BirchPlanksCore() {
@@ -10,5 +13,10 @@ public class BirchPlanksCore extends PlanksCore {
     @Override
     public CoreTypes getType() {
         return CoreTypes.BIRCH_PLANKS;
+    }
+
+    @Override
+    public CoreModel getModel(Vector3f cubeOriginPoint) {
+        return new BirchPlanksCoreModel(BirchPlanksCoreModel.getTexturedModelData(cubeOriginPoint).createModel());
     }
 }

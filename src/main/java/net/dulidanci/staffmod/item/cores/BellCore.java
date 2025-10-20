@@ -1,5 +1,7 @@
 package net.dulidanci.staffmod.item.cores;
 
+import net.dulidanci.staffmod.render.model.core.BellCoreModel;
+import net.dulidanci.staffmod.render.model.core.CoreModel;
 import net.dulidanci.staffmod.util.EntityTimerManager;
 import net.dulidanci.staffmod.util.ManaSupplier;
 import net.dulidanci.staffmod.util.MobUtilities;
@@ -8,6 +10,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
+import org.joml.Vector3f;
 
 public class BellCore implements CoreTemplate{
     public static final double manaOnHit = 5;
@@ -20,6 +23,11 @@ public class BellCore implements CoreTemplate{
     @Override
     public CoreTypes getType() {
         return CoreTypes.BELL;
+    }
+
+    @Override
+    public CoreModel getModel(Vector3f cubeOriginPoint) {
+        return new BellCoreModel(BellCoreModel.getTexturedModelData(cubeOriginPoint).createModel());
     }
 
     public static void onHit(MobEntity mobEntity, World world, PlayerEntity player) {

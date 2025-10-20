@@ -1,9 +1,7 @@
 package net.dulidanci.staffmod.datagen;
 
-import com.google.gson.JsonObject;
 import net.dulidanci.staffmod.StaffMod;
 import net.dulidanci.staffmod.item.cores.CoreTypes;
-import net.dulidanci.staffmod.util.json.JsonLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataProvider;
@@ -11,7 +9,6 @@ import net.minecraft.data.DataWriter;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
-import org.jetbrains.annotations.Nullable;
 
 
 import javax.imageio.ImageIO;
@@ -58,6 +55,8 @@ public class CoreTextureProvider implements DataProvider {
         return CompletableFuture.runAsync(() -> {
 
             for (CoreTypes coreTemplate : CoreTypes.values()) {
+                if (coreTemplate == CoreTypes.AIR) continue;
+
                 Block coreBlock = coreTemplate.getBlock();
                 Identifier coreId = Registries.BLOCK.getId(coreBlock);
 
@@ -76,33 +75,57 @@ public class CoreTextureProvider implements DataProvider {
 
                     BufferedImage src = ImageIO.read(stream).getSubimage(0, 0, 16, 16);
 
-                    BufferedImage result = new BufferedImage(src.getWidth() * 3 + 64, src.getHeight() * 3 + 64, BufferedImage.TYPE_INT_ARGB);
-                    Graphics2D tripled = result.createGraphics();
+                    drawCentered(src, coreId, path);
+                    drawShifted(src, coreId, path);
 
-                    for (int y = 0; y < src.getHeight(); y++) {
-                        for (int x = 0; x < src.getWidth(); x++) {
-                            for (int j = 0; j < 3; j++) {
-                                for (int i = 0; i < 3; i++) {
-                                    result.setRGB(3 * x + i + 32, 3 * y + j + 32, src.getRGB(x, y));
-                                }
-                            }
-                        }
-                    }
-
-                    tripled.dispose();
-
-                    Path projectRoot = Paths.get("").toAbsolutePath().getParent();
-
-                    Path outputPath = projectRoot.resolve(outputDirectory + coreId.getPath() + ".png");
-                    Files.createDirectories(outputPath.getParent());
-
-                    ImageIO.write(result, "png", outputPath.toFile());
                 } catch (IOException e) {
                     StaffMod.LOGGER.error("Couldn't generate core texture from file {}", path);
                     throw new RuntimeException(e);
                 }
             }
         }, Util.getMainWorkerExecutor());
+    }
+
+    private void drawShifted(BufferedImage src, Identifier coreId, String path) {
+        try {
+            BufferedImage result = new BufferedImage(28, 28, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D graphics = result.createGraphics();
+
+            graphics.drawImage(src, 4, 6, null);
+
+            graphics.dispose();
+
+            Path projectRoot = Paths.get("").toAbsolutePath().getParent();
+
+            Path outputPath = projectRoot.resolve(outputDirectory + coreId.getPath() + "_shifted.png");
+            Files.createDirectories(outputPath.getParent());
+
+            ImageIO.write(result, "png", outputPath.toFile());
+        } catch (IOException e) {
+            StaffMod.LOGGER.error("Couldn't generate shifted core texture from file {}", path);
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void drawCentered(BufferedImage src, Identifier coreId, String path) {
+        try {
+            BufferedImage result = new BufferedImage(28, 28, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D graphics = result.createGraphics();
+
+            graphics.drawImage(src, 6, 6, null);
+
+            graphics.dispose();
+
+            Path projectRoot = Paths.get("").toAbsolutePath().getParent();
+
+            Path outputPath = projectRoot.resolve(outputDirectory + coreId.getPath() + ".png");
+            Files.createDirectories(outputPath.getParent());
+
+            ImageIO.write(result, "png", outputPath.toFile());
+        } catch (IOException e) {
+            StaffMod.LOGGER.error("Couldn't generate centered core texture from file {}", path);
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

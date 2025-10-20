@@ -10,7 +10,7 @@ import net.dulidanci.staffmod.item.ModItems;
 import net.dulidanci.staffmod.item.cores.BellCore;
 import net.dulidanci.staffmod.item.cores.CoreTypes;
 import net.dulidanci.staffmod.item.cores.LapisLazuliCore;
-import net.dulidanci.staffmod.item.custom.DynamicStaffItem;
+import net.dulidanci.staffmod.item.custom.StaffItem;
 import net.dulidanci.staffmod.screen.ModScreenHandlers;
 import net.dulidanci.staffmod.util.EntityTimerManager;
 import net.dulidanci.staffmod.util.ManaSupplier;
@@ -56,11 +56,11 @@ public class StaffMod implements ModInitializer {
 			if (!world.isClient) {
 				TrackedAnvilEntity.setTargetForAnvils(entity);
 
-				if (player.getMainHandStack().getItem() instanceof DynamicStaffItem dynamicStaffItem) {
-					if (dynamicStaffItem.getCore().getType().equals(CoreTypes.MAGMA_BLOCK)) {
+				if (player.getMainHandStack().getItem() instanceof StaffItem staffItem) {
+					if (staffItem.getCore().getType().equals(CoreTypes.MAGMA_BLOCK)) {
 						entity.setOnFireFor(8);
 					}
-					if (dynamicStaffItem.getCore().getType().equals(CoreTypes.LAPIS_LAZULI)) {
+					if (staffItem.getCore().getType().equals(CoreTypes.LAPIS_LAZULI)) {
 						if (entity instanceof LivingEntity livingEntity) {
 							if (ManaSupplier.manaCheck(player, LapisLazuliCore.manaOnHit)) {
 								livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 600, 0));
@@ -68,7 +68,7 @@ public class StaffMod implements ModInitializer {
 							}
 						}
 					}
-					if (dynamicStaffItem.getCore().getType().equals(CoreTypes.BELL)) {
+					if (staffItem.getCore().getType().equals(CoreTypes.BELL)) {
 						if (entity instanceof MobEntity mob) {
 							BellCore.onHit(mob, world, player);
 						}

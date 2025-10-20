@@ -1,5 +1,5 @@
-// 1.20.4	2025-10-12T09:55:58.8820916	Staff Mod/Recipes
+// 1.20.4	2025-10-19T23:06:39.2362995	Staff Mod/Recipes
+d49002b19543af68112b5fbba404d26fb1eef36c data\staffmod\advancements\recipes\tools\perfected_staff.json
 2c6c3c033ad4e7577fcc12f9c7e854d64fabb186 data\staffmod\advancements\recipes\decorations\staff_upgrade_station.json
-9a1b3b5680d12cbb89c5193fecf428b982837005 data\staffmod\recipes\regular_staff.json
-b89f4a72e95f341f4331138443425d59dcc511cc data\staffmod\advancements\recipes\tools\regular_staff.json
+f5b062549c79e7c82f7b3d80e6843f8696b3b7df data\staffmod\recipes\perfected_staff.json
 7f5de070dd06fcf5f06c7ebcf2d21b4bd5209d95 data\staffmod\recipes\staff_upgrade_station.json

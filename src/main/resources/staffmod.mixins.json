@@ -5,7 +5,6 @@
   "client": [
     "ItemRendererAccessor",
     "ItemRendererMixin",
-    "JsonUnbakedModelMixin",
     "ModelLoaderMixin"
   ],
   "injectors": {

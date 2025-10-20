@@ -1,5 +1,7 @@
 package net.dulidanci.staffmod.item.cores;
 
+import net.dulidanci.staffmod.render.model.core.CoreModel;
+import net.dulidanci.staffmod.render.model.core.LapisLazuliCoreModel;
 import net.dulidanci.staffmod.util.ManaSupplier;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -7,6 +9,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.joml.Vector3f;
 
 import java.util.ArrayList;
 
@@ -51,5 +54,10 @@ public class LapisLazuliCore implements CoreTemplate{
     @Override
     public CoreTypes getType() {
         return CoreTypes.LAPIS_LAZULI;
+    }
+
+    @Override
+    public CoreModel getModel(Vector3f cubeOriginPoint) {
+        return new LapisLazuliCoreModel(LapisLazuliCoreModel.getTexturedModelData(cubeOriginPoint).createModel());
     }
 }

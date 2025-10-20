@@ -1,5 +1,7 @@
 package net.dulidanci.staffmod.item.cores;
 
+import net.dulidanci.staffmod.render.model.core.CoreModel;
+import net.dulidanci.staffmod.render.model.core.TntCoreModel;
 import net.dulidanci.staffmod.util.ManaSupplier;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.TntEntity;
@@ -7,8 +9,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.joml.Vector3f;
 
-public class TntCore implements CoreTemplate{
+public class TntCore implements CoreTemplate {
     public static final double mana = 1;
 
     @Override
@@ -41,5 +44,10 @@ public class TntCore implements CoreTemplate{
     @Override
     public CoreTypes getType() {
         return CoreTypes.TNT;
+    }
+
+    @Override
+    public CoreModel getModel(Vector3f cubeOriginPoint) {
+        return new TntCoreModel(TntCoreModel.getTexturedModelData(cubeOriginPoint).createModel());
     }
 }

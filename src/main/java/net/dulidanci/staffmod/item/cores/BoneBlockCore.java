@@ -1,5 +1,7 @@
 package net.dulidanci.staffmod.item.cores;
 
+import net.dulidanci.staffmod.render.model.core.BoneBlockCoreModel;
+import net.dulidanci.staffmod.render.model.core.CoreModel;
 import net.dulidanci.staffmod.util.ManaSupplier;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Fertilizable;
@@ -12,6 +14,7 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+import org.joml.Vector3f;
 
 public class BoneBlockCore implements CoreTemplate{
     public static final double mana = 1;
@@ -48,5 +51,10 @@ public class BoneBlockCore implements CoreTemplate{
     @Override
     public CoreTypes getType() {
         return CoreTypes.BONE_BLOCK;
+    }
+
+    @Override
+    public CoreModel getModel(Vector3f cubeOriginPoint) {
+        return new BoneBlockCoreModel(BoneBlockCoreModel.getTexturedModelData(cubeOriginPoint).createModel());
     }
 }

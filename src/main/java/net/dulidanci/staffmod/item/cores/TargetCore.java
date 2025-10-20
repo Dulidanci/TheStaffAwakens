@@ -1,5 +1,7 @@
 package net.dulidanci.staffmod.item.cores;
 
+import net.dulidanci.staffmod.render.model.core.CoreModel;
+import net.dulidanci.staffmod.render.model.core.TargetCoreModel;
 import net.dulidanci.staffmod.util.EntityTimerManager;
 import net.dulidanci.staffmod.util.ManaSupplier;
 import net.dulidanci.staffmod.util.ModTags;
@@ -18,6 +20,7 @@ import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.joml.Vector3f;
 
 public class TargetCore implements CoreTemplate{
     public static final double mana = 2;
@@ -77,6 +80,11 @@ public class TargetCore implements CoreTemplate{
     @Override
     public CoreTypes getType() {
         return CoreTypes.TARGET;
+    }
+
+    @Override
+    public CoreModel getModel(Vector3f cubeOriginPoint) {
+        return new TargetCoreModel(TargetCoreModel.getTexturedModelData(cubeOriginPoint).createModel());
     }
 
     public static void resetTeam(LivingEntity entity, World world) {

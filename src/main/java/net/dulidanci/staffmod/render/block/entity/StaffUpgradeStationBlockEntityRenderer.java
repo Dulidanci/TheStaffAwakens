@@ -27,11 +27,11 @@ public class StaffUpgradeStationBlockEntityRenderer implements BlockEntityRender
         if (!stack.isEmpty()) {
             matrices.push();
 
-            matrices.translate(0.5, 1.0625, 0.53125);
-            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180));
+            matrices.translate(0.5, 2.0625, 0.53125);
+            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(0));
 
-            MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformationMode.GROUND,
-                    getLightLevel(entity.getWorld(), entity.getPos()), OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, entity.getWorld(), 1);
+//            MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformationMode.GROUND,
+//                    getLightLevel(entity.getWorld(), entity.getPos()), OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, entity.getWorld(), 1);
 
             matrices.pop();
         }

@@ -1,11 +1,14 @@
 package net.dulidanci.staffmod.item.cores;
 
 import net.dulidanci.staffmod.entity.custom.TrackedAnvilEntity;
+import net.dulidanci.staffmod.render.model.core.AnvilCoreModel;
+import net.dulidanci.staffmod.render.model.core.CoreModel;
 import net.dulidanci.staffmod.util.ManaSupplier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.joml.Vector3f;
 
 public class AnvilCore implements CoreTemplate {
     public static final double mana = 8;
@@ -31,5 +34,10 @@ public class AnvilCore implements CoreTemplate {
     @Override
     public CoreTypes getType() {
         return CoreTypes.ANVIL;
+    }
+
+    @Override
+    public CoreModel getModel(Vector3f cubeOriginPoint) {
+        return new AnvilCoreModel(AnvilCoreModel.getTexturedModelData(cubeOriginPoint).createModel());
     }
 }
