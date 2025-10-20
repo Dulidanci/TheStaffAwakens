@@ -18,6 +18,6 @@ public class AirCore implements CoreTemplate {
 
     @Override
     public CoreModel getModel(Vector3f cubeOriginPoint) {
-        return new AirCoreModel(AirCoreModel.getTexturedModelData(cubeOriginPoint).createModel());
+        return new AirCoreModel(AirCoreModel.getTexturedModelData().createModel());
     }
 }

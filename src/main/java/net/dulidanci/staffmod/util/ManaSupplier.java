@@ -15,8 +15,8 @@ import java.util.Map;
 import java.util.UUID;
 
 public class ManaSupplier {
-    public static Map<UUID, Double> manaPoints = new HashMap<>();
-    public static Map<UUID, Double> manaMax = new HashMap<>();
+    public static final Map<UUID, Double> manaPoints = new HashMap<>();
+    public static final Map<UUID, Double> manaMax = new HashMap<>();
     private static final double baseMax = 40;
     private static final double extraPerLevel = 8;
     private static final Map<UUID, Integer> timeLimit = new HashMap<>();

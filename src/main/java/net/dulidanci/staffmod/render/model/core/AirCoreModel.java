@@ -17,7 +17,7 @@ public class AirCoreModel extends CoreModel {
         this.root = root;
     }
 
-    public static TexturedModelData getTexturedModelData(Vector3f cubeOriginPoint) {
+    public static TexturedModelData getTexturedModelData() {
         ModelData data = new ModelData();
 
         return TexturedModelData.of(data, 64, 64);

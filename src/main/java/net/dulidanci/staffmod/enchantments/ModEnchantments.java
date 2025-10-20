@@ -8,7 +8,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class ModEnchantments {
-    public static Enchantment MAGICAL = registerEnchantment("magical", new MagicalEnchantment());
+    public static final Enchantment MAGICAL = registerEnchantment("magical", new MagicalEnchantment());
 
     public static Enchantment registerEnchantment(String name, Enchantment enchantment) {
         return Registry.register(Registries.ENCHANTMENT, new Identifier(StaffMod.MOD_ID, name), enchantment);

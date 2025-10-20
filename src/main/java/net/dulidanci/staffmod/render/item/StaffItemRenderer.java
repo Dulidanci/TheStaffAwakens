@@ -1,23 +1,14 @@
 package net.dulidanci.staffmod.render.item;
 
 import net.dulidanci.staffmod.StaffMod;
-import net.dulidanci.staffmod.item.cores.CoreTypes;
 import net.dulidanci.staffmod.item.custom.StaffItem;
 import net.dulidanci.staffmod.render.model.core.CoreModel;
 import net.dulidanci.staffmod.render.model.staff.StaffModel;
-import net.dulidanci.staffmod.util.json.ModelTransformationLoader;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
-import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
 
@@ -30,7 +21,6 @@ public class StaffItemRenderer implements BuiltinItemRendererRegistry.DynamicIte
             return;
         }
 
-        Identifier itemId = Registries.ITEM.getId(item.getStaff().getType().getItem());
         boolean isLeftHanded = (mode == ModelTransformationMode.THIRD_PERSON_LEFT_HAND || mode == ModelTransformationMode.FIRST_PERSON_LEFT_HAND);
 
         matrices.push();
