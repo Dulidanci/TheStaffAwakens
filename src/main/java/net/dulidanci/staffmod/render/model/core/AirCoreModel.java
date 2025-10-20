@@ -6,7 +6,6 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import org.joml.Vector3f;
 
 public class AirCoreModel extends CoreModel {
     private static final Identifier TEXTURE = new Identifier(StaffMod.MOD_ID, "textures/item/air_core.png");
