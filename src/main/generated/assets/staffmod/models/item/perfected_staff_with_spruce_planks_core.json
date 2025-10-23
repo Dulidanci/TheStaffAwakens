@@ -1,7 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "staffmod:item/perfected_staff",
-    "layer1": "staffmod:item/cores/spruce_planks_shifted"
-  }
-}

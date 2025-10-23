@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "thestaffawakens:block/blueprint_planks"
+  }
+}
