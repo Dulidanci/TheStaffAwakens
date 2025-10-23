@@ -3,13 +3,13 @@
 	"id": "thestaffawakens",
 	"version": "${version}",
 	"name": "The Staff Awakens",
-	"description": "This mod adds all the staffs with their unique powers from the AvM series made by Alan Becker. Mod created by Dulidanci",
+	"description": "This mod adds a handful of staffs from Alan Becker's AvM series, while providing a survival friendly gameplay. Mod created by Dulidanci",
 	"authors": [
 		"Dulidanci"
 	],
 	"contact": {
 		"homepage": "https://modrinth.com/mod/the-staff-awakens",
-		"sources": "https://github.com/Dulidanci/Staff_mod"
+		"sources": "https://github.com/Dulidanci/TheStaffAwakens"
 	},
 	"license": "Apache 2.0",
 	"icon": "icon.png",
