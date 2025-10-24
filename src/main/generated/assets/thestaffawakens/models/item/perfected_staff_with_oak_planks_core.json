@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "thestaffawakens:item/perfected_staff",
+    "layer1": "thestaffawakens:item/cores/oak_planks_shifted"
+  }
+}

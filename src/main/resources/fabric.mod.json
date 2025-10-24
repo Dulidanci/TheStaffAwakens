@@ -1,32 +1,32 @@
 {
 	"schemaVersion": 1,
-	"id": "staffmod",
+	"id": "thestaffawakens",
 	"version": "${version}",
-	"name": "Staff Mod",
-	"description": "This mod adds all the staffs with their unique powers from the AvM series made by Alan Becker. Mod created by Dulidanci",
+	"name": "The Staff Awakens",
+	"description": "This mod adds a handful of staffs from Alan Becker's AvM series, while providing a survival friendly gameplay. Mod created by Dulidanci",
 	"authors": [
 		"Dulidanci"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/Dulidanci/Staff_mod"
+		"homepage": "https://modrinth.com/mod/the-staff-awakens",
+		"sources": "https://github.com/Dulidanci/TheStaffAwakens"
 	},
 	"license": "Apache 2.0",
-	"icon": "assets/staffmod/icon.png",
+	"icon": "icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"net.dulidanci.staffmod.StaffMod"
+          "net.dulidanci.thestaffawakens.TheStaffAwakens"
 		],
 		"client": [
-			"net.dulidanci.staffmod.StaffModClient"
+			"net.dulidanci.thestaffawakens.TheStaffAwakensClient"
 		],
 		"fabric-datagen": [
-			"net.dulidanci.staffmod.StaffModDataGenerator"
+			"net.dulidanci.thestaffawakens.TheStaffAwakensDataGenerator"
 		]
 	},
 	"mixins": [
-		"staffmod.mixins.json"
+		"thestaffawakens.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.16.9",

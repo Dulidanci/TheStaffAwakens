@@ -1,0 +1,40 @@
+package net.dulidanci.thestaffawakens.item.cores;
+
+import net.dulidanci.thestaffawakens.entity.ModEntities;
+import net.dulidanci.thestaffawakens.entity.custom.LoyalBeeEntity;
+import net.dulidanci.thestaffawakens.render.model.core.BeehiveCoreModel;
+import net.dulidanci.thestaffawakens.render.model.core.CoreModel;
+import net.dulidanci.thestaffawakens.util.ManaSupplier;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.World;
+import org.joml.Vector3f;
+
+public class BeehiveCore implements CoreTemplate{
+    public static final double mana = 4;
+
+    @Override
+    public void activateCore(PlayerEntity player) {
+        World world = player.getWorld();
+        if (world.isClient()) {
+            return;
+        }
+
+        if (ManaSupplier.manaCheck(player, mana)) {
+            LoyalBeeEntity bee = new LoyalBeeEntity(ModEntities.LOYAL_BEE, world);
+            bee.setOwner(player);
+            bee.refreshPositionAndAngles(player.getBlockPos(), player.getYaw(), 0);
+            world.spawnEntity(bee);
+            ManaSupplier.decreaseMana(player, mana);
+        }
+    }
+
+    @Override
+    public CoreTypes getType() {
+        return CoreTypes.BEEHIVE;
+    }
+
+    @Override
+    public CoreModel getModel(Vector3f cubeOriginPoint) {
+        return new BeehiveCoreModel(BeehiveCoreModel.getTexturedModelData(cubeOriginPoint).createModel());
+    }
+}

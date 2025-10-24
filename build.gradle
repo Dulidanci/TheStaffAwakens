@@ -43,6 +43,10 @@ processResources {
 	}
 }
 
+tasks.processResources {
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 tasks.withType(JavaCompile).configureEach {
 	it.options.release = 17
 }

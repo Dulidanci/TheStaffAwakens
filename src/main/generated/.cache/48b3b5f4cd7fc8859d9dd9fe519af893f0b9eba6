@@ -1,6 +1,0 @@
-// 1.20.4	2025-05-17T23:53:09.6926129	Staff Mod/Tags for minecraft:block
-22207ce07181a7c8d125730778735c95dae2a2dd data\minecraft\tags\blocks\needs_stone_tool.json
-22207ce07181a7c8d125730778735c95dae2a2dd data\minecraft\tags\blocks\mineable\pickaxe.json
-d11673003fbcea46bbd9d1af12a72985865a6bf6 data\staffmod\tags\blocks\replaceable_by_building_preview.json
-d60e7936806c59524f3df9bd63e21cff0bd39c7e data\staffmod\tags\blocks\can_teleport_into.json
-d3db622e4eef000e05c71fde2f5392779d135f70 data\staffmod\tags\blocks\replaceable_by_light.json

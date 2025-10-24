@@ -1,0 +1,44 @@
+{
+  "item.thestaffawakens.perfected_staff": "Perfected Staff",
+  "item.thestaffawakens.perfected_staff_with_acacia_planks_core": "Perfected Staff with Acacia Planks Core",
+  "item.thestaffawakens.perfected_staff_with_anvil_core": "Perfected Staff with Anvil Core",
+  "item.thestaffawakens.perfected_staff_with_bamboo_planks_core": "Perfected Staff with Bamboo Planks Core",
+  "item.thestaffawakens.perfected_staff_with_beehive_core": "Perfected Staff with Beehive Core",
+  "item.thestaffawakens.perfected_staff_with_bell_core": "Perfected Staff with Bell Core",
+  "item.thestaffawakens.perfected_staff_with_birch_planks_core": "Perfected Staff with Birch Planks Core",
+  "item.thestaffawakens.perfected_staff_with_bone_block_core": "Perfected Staff with Bone Block Core",
+  "item.thestaffawakens.perfected_staff_with_cherry_planks_core": "Perfected Staff with Cherry Planks Core",
+  "item.thestaffawakens.perfected_staff_with_crimson_planks_core": "Perfected Staff with Crimson Planks Core",
+  "item.thestaffawakens.perfected_staff_with_dark_oak_planks_core": "Perfected Staff with Dark Oak Planks Core",
+  "item.thestaffawakens.perfected_staff_with_end_stone_core": "Perfected Staff with End Stone Core",
+  "item.thestaffawakens.perfected_staff_with_glowstone_core": "Perfected Staff with Glowstone Core",
+  "item.thestaffawakens.perfected_staff_with_jungle_planks_core": "Perfected Staff with Jungle Planks Core",
+  "item.thestaffawakens.perfected_staff_with_lapis_lazuli_core": "Perfected Staff with Lapis Lazuli Core",
+  "item.thestaffawakens.perfected_staff_with_magma_block_core": "Perfected Staff with Magma Block Core",
+  "item.thestaffawakens.perfected_staff_with_mangrove_planks_core": "Perfected Staff with Mangrove Planks Core",
+  "item.thestaffawakens.perfected_staff_with_netherrack_core": "Perfected Staff with Netherrack Core",
+  "item.thestaffawakens.perfected_staff_with_oak_planks_core": "Perfected Staff with Oak Planks Core",
+  "item.thestaffawakens.perfected_staff_with_spruce_planks_core": "Perfected Staff with Spruce Planks Core",
+  "item.thestaffawakens.perfected_staff_with_target_core": "Perfected Staff with Target Core",
+  "item.thestaffawakens.perfected_staff_with_tnt_core": "Perfected Staff with Tnt Core",
+  "item.thestaffawakens.perfected_staff_with_warped_planks_core": "Perfected Staff with Warped Planks Core",
+
+  "item.thestaffawakens.log_staff" :"Log Staff",
+  "item.thestaffawakens.log_staff_with_beehive_core": "Log Staff with Beehive Core",
+  "item.thestaffawakens.log_staff_with_bone_block_core": "Log Staff with Bone Block Core",
+  "item.thestaffawakens.log_staff_with_magma_block_core": "Log Staff with Magma Block Core",
+  "item.thestaffawakens.log_staff_with_netherrack_core": "Log Staff with Netherrack Core",
+  "item.thestaffawakens.log_staff_with_tnt_core": "Log Staff with Tnt Core",
+
+  "block.thestaffawakens.blueprint_planks": "Blueprint Planks",
+  "block.thestaffawakens.fading_light_block": "Fading Light Block",
+  "block.thestaffawakens.staff_upgrade_station": "Staff Upgrade Station",
+
+  "gui.thestaffawakens.staff_upgrade_station": "Staff Upgrade Station",
+
+  "enchantment.thestaffawakens.magical": "Magical",
+
+  "itemgroup.staffs": "The Staff Awakens",
+
+  "error.planks_staff_item.not_enough_planks": "You don't have enough planks to build this!"
+}
