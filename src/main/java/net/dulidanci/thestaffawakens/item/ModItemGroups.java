@@ -23,7 +23,7 @@ public class ModItemGroups {
                            entries.add(staffItem);
                        }
 
-//                       entries.add(ModBlocks.STAFF_UPGRADE_STATION);
+                       entries.add(ModBlocks.STAFF_WORKBENCH);
                        entries.add(ModBlocks.BLUEPRINT_PLANKS);
                        entries.add(ModBlocks.FADING_LIGHT_BLOCK);
 

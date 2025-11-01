@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:staff_upgrade_station"
+        "recipe": "minecraft:staff_workbench"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:staff_upgrade_station"
+      "minecraft:staff_workbench"
     ]
   }
 }

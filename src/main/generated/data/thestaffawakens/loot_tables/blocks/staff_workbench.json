@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "thestaffawakens:staff_upgrade_station"
+          "name": "thestaffawakens:staff_workbench"
         }
       ],
       "rolls": 1.0

@@ -1,10 +1,7 @@
 package net.dulidanci.thestaffawakens.block.entity;
 
 import net.dulidanci.thestaffawakens.block.ModBlockEntities;
-import net.dulidanci.thestaffawakens.item.ModItems;
-import net.dulidanci.thestaffawakens.item.custom.StaffItem;
-import net.dulidanci.thestaffawakens.screen.StaffUpgradeStationEmptyScreenHandler;
-import net.dulidanci.thestaffawakens.screen.StaffUpgradeStationStaffScreenHandler;
+import net.dulidanci.thestaffawakens.render.screen.StaffWorkbenchScreenHandler;
 import net.dulidanci.thestaffawakens.util.StaffPairingTable;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
@@ -27,14 +24,14 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 
-public class StaffUpgradeStationBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
+public class StaffWorkbenchBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
     private static final int STAFF_SLOT = 0;
     private static final int CORE_SLOT = 1;
     private boolean hasStaff;
 
-    public StaffUpgradeStationBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.STAFF_UPGRADE_STATION_BLOCK_ENTITY, pos, state);
+    public StaffWorkbenchBlockEntity(BlockPos pos, BlockState state) {
+        super(ModBlockEntities.STAFF_WORKBENCH_BLOCK_ENTITY, pos, state);
         this.hasStaff = false;
     }
 
@@ -54,16 +51,14 @@ public class StaffUpgradeStationBlockEntity extends BlockEntity implements Exten
     }
 
     public void modifyInventoryBeforeBreaking() {
-        if (inventory.get(STAFF_SLOT).getItem() instanceof StaffItem && inventory.get(STAFF_SLOT).getItem() != ModItems.PERFECTED_STAFF) {
-            inventory.get(CORE_SLOT).decrement(1);
-        }
+        if (!inventory.get(STAFF_SLOT).isEmpty()) inventory.get(STAFF_SLOT).decrement(1);
     }
 
     @Override
     public void markDirty() {
-        if (!this.getStack(STAFF_SLOT).getItem().equals(StaffPairingTable.getStaffCorrespondingToBlock(this.getStack(CORE_SLOT).getItem())) && hasStaff) {
-            this.setStack(STAFF_SLOT, new ItemStack(StaffPairingTable.getStaffCorrespondingToBlock(this.getStack(CORE_SLOT).getItem())));
-        }
+//        if (!this.getStack(STAFF_SLOT).getItem().equals(StaffPairingTable.getStaffCorrespondingToBlock(this.getStack(CORE_SLOT).getItem())) && hasStaff) {
+//            this.setStack(STAFF_SLOT, new ItemStack(StaffPairingTable.getStaffCorrespondingToBlock(this.getStack(CORE_SLOT).getItem())));
+//        }
         world.updateListeners(pos, getCachedState(), getCachedState(), 3);
         super.markDirty();
     }
@@ -81,7 +76,7 @@ public class StaffUpgradeStationBlockEntity extends BlockEntity implements Exten
 
     @Override
     public Text getDisplayName() {
-        return Text.translatable("gui.thestaffawakens.staff_upgrade_station");
+        return Text.translatable("gui.thestaffawakens.staff_workbench");
     }
 
     @Override
@@ -108,10 +103,11 @@ public class StaffUpgradeStationBlockEntity extends BlockEntity implements Exten
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        if (hasStaff) {
-            return new StaffUpgradeStationStaffScreenHandler(syncId, playerInventory, this);
-        }
-        return new StaffUpgradeStationEmptyScreenHandler(syncId, playerInventory, this);
+//        if (hasStaff) {
+//            return new StaffUpgradeStationStaffScreenHandler(syncId, playerInventory, this);
+//        }
+//        return new StaffUpgradeStationEmptyScreenHandler(syncId, playerInventory, this);
+        return new StaffWorkbenchScreenHandler(syncId, playerInventory, this);
     }
 
 //    public void tick(World world, BlockPos pos, BlockState state) {

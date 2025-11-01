@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [48, 48],
 	"textures": {
-		"1": "thestaffawakens:block/staff_upgrade_station",
-		"particle": "thestaffawakens:block/staff_upgrade_station"
+		"1": "thestaffawakens:block/staff_workbench",
+		"particle": "thestaffawakens:block/staff_workbench"
 	},
 	"elements": [
 		{

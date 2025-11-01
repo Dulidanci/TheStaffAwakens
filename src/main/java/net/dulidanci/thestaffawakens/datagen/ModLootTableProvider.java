@@ -11,6 +11,6 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
 
     @Override
     public void generate() {
-        addDrop(ModBlocks.STAFF_UPGRADE_STATION);
+        addDrop(ModBlocks.STAFF_WORKBENCH);
     }
 }

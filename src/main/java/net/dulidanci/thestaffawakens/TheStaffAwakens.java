@@ -11,7 +11,7 @@ import net.dulidanci.thestaffawakens.item.cores.BellCore;
 import net.dulidanci.thestaffawakens.item.cores.CoreTypes;
 import net.dulidanci.thestaffawakens.item.cores.LapisLazuliCore;
 import net.dulidanci.thestaffawakens.item.custom.StaffItem;
-import net.dulidanci.thestaffawakens.screen.ModScreenHandlers;
+import net.dulidanci.thestaffawakens.render.screen.ModScreenHandlers;
 import net.dulidanci.thestaffawakens.util.EntityTimerManager;
 import net.dulidanci.thestaffawakens.util.ManaSupplier;
 import net.dulidanci.thestaffawakens.util.PlayerItemTracker;

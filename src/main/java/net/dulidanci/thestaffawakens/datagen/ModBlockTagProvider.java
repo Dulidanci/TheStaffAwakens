@@ -37,9 +37,9 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(Blocks.WATER);
 
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
-                .add(ModBlocks.STAFF_UPGRADE_STATION);
+                .add(ModBlocks.STAFF_WORKBENCH);
 
         getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
-                .add(ModBlocks.STAFF_UPGRADE_STATION);
+                .add(ModBlocks.STAFF_WORKBENCH);
     }
 }

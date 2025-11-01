@@ -19,7 +19,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
     @Override
     public void generate(RecipeExporter recipeExporter) {
-        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.STAFF_UPGRADE_STATION, 1)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.STAFF_WORKBENCH, 1)
                 .pattern("ILI")
                 .pattern("SCS")
                 .pattern("W W")
@@ -29,7 +29,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('C', Items.CRYING_OBSIDIAN)
                 .input('W', Ingredient.fromTag(ItemTags.LOGS))
                 .criterion(hasItem(Items.CRYING_OBSIDIAN), conditionsFromItem(Items.CRYING_OBSIDIAN))
-                .offerTo(recipeExporter, new Identifier(getRecipeName(ModBlocks.STAFF_UPGRADE_STATION)));
+                .offerTo(recipeExporter, new Identifier(getRecipeName(ModBlocks.STAFF_WORKBENCH)));
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.PERFECTED_STAFF, 1)
                 .pattern("  C")

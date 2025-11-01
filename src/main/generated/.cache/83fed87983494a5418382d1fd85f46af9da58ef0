@@ -1,6 +1,6 @@
-// 1.20.4	2025-10-23T19:56:38.8806127	The Staff Awakens/Tags for minecraft:block
-a74e90fe46b3a450451ac54c27d872339d93da6b data\minecraft\tags\blocks\mineable\pickaxe.json
+// 1.20.4	2025-10-26T21:07:08.2374821	The Staff Awakens/Tags for minecraft:block
+7c78724b1545747d69e3a4eaf6e0f0ae2089cfc3 data\minecraft\tags\blocks\mineable\pickaxe.json
 04456c4c1563d8dc1095e6e7445c7aa163435205 data\thestaffawakens\tags\blocks\replaceable_by_building_preview.json
 d60e7936806c59524f3df9bd63e21cff0bd39c7e data\thestaffawakens\tags\blocks\can_teleport_into.json
 d3db622e4eef000e05c71fde2f5392779d135f70 data\thestaffawakens\tags\blocks\replaceable_by_light.json
-a74e90fe46b3a450451ac54c27d872339d93da6b data\minecraft\tags\blocks\needs_stone_tool.json
+7c78724b1545747d69e3a4eaf6e0f0ae2089cfc3 data\minecraft\tags\blocks\needs_stone_tool.json

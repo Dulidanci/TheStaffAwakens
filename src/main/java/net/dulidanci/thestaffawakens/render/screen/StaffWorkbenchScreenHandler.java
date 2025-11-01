@@ -1,6 +1,6 @@
-package net.dulidanci.thestaffawakens.screen;
+package net.dulidanci.thestaffawakens.render.screen;
 
-import net.dulidanci.thestaffawakens.block.entity.StaffUpgradeStationBlockEntity;
+import net.dulidanci.thestaffawakens.block.entity.StaffWorkbenchBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -10,21 +10,21 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 
-public class StaffUpgradeStationStaffScreenHandler extends ScreenHandler {
+public class StaffWorkbenchScreenHandler extends ScreenHandler {
     private final Inventory inventory;
-    public final StaffUpgradeStationBlockEntity blockEntity;
+    public final StaffWorkbenchBlockEntity blockEntity;
 
-    public StaffUpgradeStationStaffScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
+    public StaffWorkbenchScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
         this(syncId, inventory, inventory.player.getWorld().getBlockEntity(buf.readBlockPos()));
     }
 
-    public StaffUpgradeStationStaffScreenHandler(int syncId, PlayerInventory playerInventory,
-                                                 BlockEntity blockEntity) {
-        super(ModScreenHandlers.STAFF_UPGRADE_STATION_STAFF_SCREEN_HANDLER, syncId);
+    public StaffWorkbenchScreenHandler(int syncId, PlayerInventory playerInventory,
+                                       BlockEntity blockEntity) {
+        super(ModScreenHandlers.STAFF_WORKBENCH_SCREEN_HANDLER, syncId);
         checkSize((Inventory) blockEntity, 2);
         this.inventory = (Inventory) blockEntity;
         playerInventory.onOpen(playerInventory.player);
-        this.blockEntity = (StaffUpgradeStationBlockEntity) blockEntity;
+        this.blockEntity = (StaffWorkbenchBlockEntity) blockEntity;
 
         this.addSlot(new Slot(inventory, 1, 131, 29));
 

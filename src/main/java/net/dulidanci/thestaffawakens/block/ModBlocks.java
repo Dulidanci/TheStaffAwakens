@@ -3,7 +3,7 @@ package net.dulidanci.thestaffawakens.block;
 import net.dulidanci.thestaffawakens.TheStaffAwakens;
 import net.dulidanci.thestaffawakens.block.custom.BlueprintPlanksBlock;
 import net.dulidanci.thestaffawakens.block.custom.FadingLightBlock;
-import net.dulidanci.thestaffawakens.block.custom.StaffUpgradeStationBlock;
+import net.dulidanci.thestaffawakens.block.custom.StaffWorkbenchBlock;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -20,10 +20,8 @@ public class ModBlocks {
     public static final Block FADING_LIGHT_BLOCK = registerBlock("fading_light_block",
             new FadingLightBlock(FabricBlockSettings.copyOf(Blocks.LIGHT)));
 
-    public static final Block STAFF_UPGRADE_STATION = registerBlock("staff_upgrade_station",
-            new StaffUpgradeStationBlock(FabricBlockSettings.copyOf(Blocks.STONECUTTER).nonOpaque().requiresTool()));
-
-
+    public static final Block STAFF_WORKBENCH = registerBlock("staff_workbench",
+            new StaffWorkbenchBlock(FabricBlockSettings.copyOf(Blocks.STONECUTTER).nonOpaque().requiresTool()));
 
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);

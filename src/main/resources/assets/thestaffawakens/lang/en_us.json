@@ -32,9 +32,9 @@
 
   "block.thestaffawakens.blueprint_planks": "Blueprint Planks",
   "block.thestaffawakens.fading_light_block": "Fading Light Block",
-  "block.thestaffawakens.staff_upgrade_station": "Staff Upgrade Station",
+  "block.thestaffawakens.staff_workbench": "Staff Workbench",
 
-  "gui.thestaffawakens.staff_upgrade_station": "Staff Upgrade Station",
+  "gui.thestaffawakens.staff_workbench": "Staff Workbench",
 
   "enchantment.thestaffawakens.magical": "Magical",
 
