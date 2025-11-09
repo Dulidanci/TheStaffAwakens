@@ -15,7 +15,6 @@ import net.dulidanci.thestaffawakens.render.screen.ModScreenHandlers;
 import net.dulidanci.thestaffawakens.util.EntityTimerManager;
 import net.dulidanci.thestaffawakens.util.ManaSupplier;
 import net.dulidanci.thestaffawakens.util.PlayerItemTracker;
-import net.dulidanci.thestaffawakens.util.StaffPairingTable;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
@@ -51,7 +50,6 @@ public class TheStaffAwakens implements ModInitializer {
 		PlayerItemTracker.register();
 		EntityTimerManager.register();
 		ManaSupplier.register();
-		StaffPairingTable.register();
 
 		AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
 			// Your custom logic here

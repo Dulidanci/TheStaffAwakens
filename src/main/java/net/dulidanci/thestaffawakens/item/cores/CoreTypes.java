@@ -45,4 +45,11 @@ public enum CoreTypes {
     public Block getBlock() {
         return block;
     }
+
+    public static CoreTypes getCoreFromBlock(Block block) {
+        for (CoreTypes core : CoreTypes.values()) {
+            if (core.getBlock().equals(block)) return core;
+        }
+        return AIR;
+    }
 }

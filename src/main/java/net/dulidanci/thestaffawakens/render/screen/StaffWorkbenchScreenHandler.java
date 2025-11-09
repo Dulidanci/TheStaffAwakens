@@ -21,15 +21,62 @@ public class StaffWorkbenchScreenHandler extends ScreenHandler {
     public StaffWorkbenchScreenHandler(int syncId, PlayerInventory playerInventory,
                                        BlockEntity blockEntity) {
         super(ModScreenHandlers.STAFF_WORKBENCH_SCREEN_HANDLER, syncId);
-        checkSize((Inventory) blockEntity, 2);
+        checkSize((Inventory) blockEntity, 5);
         this.inventory = (Inventory) blockEntity;
         playerInventory.onOpen(playerInventory.player);
         this.blockEntity = (StaffWorkbenchBlockEntity) blockEntity;
 
-        this.addSlot(new Slot(inventory, 1, 131, 29));
+        this.addSlot(new Slot(inventory, 0, 0, 29) {
+            @Override
+            public boolean canInsert(ItemStack stack) {
+                return false;
+            }
 
+            @Override
+            public boolean canTakeItems(PlayerEntity playerEntity) {
+                return false;
+            }
+        });
+        this.addSlot(new Slot(inventory, 1, 20, 29));
+        this.addSlot(new Slot(inventory, 2, 40, 29) {
+            @Override
+            public boolean canInsert(ItemStack stack) {
+                return false;
+            }
+
+            @Override
+            public boolean canTakeItems(PlayerEntity playerEntity) {
+                return false;
+            }
+        });
+        this.addSlot(new Slot(inventory, 3, 130, 29));
+        this.addSlot(new Slot(inventory, 4, 150, 29) {
+            @Override
+            public boolean canInsert(ItemStack stack) {
+                return false;
+            }
+
+            @Override
+            public boolean canTakeItems(PlayerEntity playerEntity) {
+                return false;
+            }
+        });
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
+    }
+
+    private void addPlayerInventory(PlayerInventory playerInventory) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 9; j++) {
+                this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+            }
+        }
+    }
+
+    private void addPlayerHotbar(PlayerInventory playerInventory) {
+        for (int i = 0; i < 9; i++) {
+            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
+        }
     }
 
     @Override
@@ -60,19 +107,5 @@ public class StaffWorkbenchScreenHandler extends ScreenHandler {
     @Override
     public boolean canUse(PlayerEntity player) {
         return this.inventory.canPlayerUse(player);
-    }
-
-    private void addPlayerInventory(PlayerInventory playerInventory) {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 9; j++) {
-                this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-            }
-        }
-    }
-
-    private void addPlayerHotbar(PlayerInventory playerInventory) {
-        for (int i = 0; i < 9; i++) {
-            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
-        }
     }
 }

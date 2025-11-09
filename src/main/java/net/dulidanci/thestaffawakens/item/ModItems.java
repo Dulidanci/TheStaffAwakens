@@ -16,7 +16,8 @@ import java.util.Map;
 
 public class ModItems {
     public static final ArrayList<StaffItem> STAFFS = new ArrayList<>();
-    public static final Map<StaffTypes, ArrayList<CoreTypes>> STAFF_CORE_COMPATIBILITY = new HashMap<>();
+    private static final Map<StaffTypes, ArrayList<CoreTypes>> STAFF_CORE_COMPATIBILITY = new HashMap<>();
+    private static final Map<String, StaffItem> GENERATE_STAFF_FROM_COMPONENTS = new HashMap<>();
 
     public static final Item PERFECTED_STAFF = registerItem("perfected_staff",
             new StaffItem(new FabricItemSettings().maxCount(1), CoreTypes.AIR.createCore(), StaffTypes.PERFECTED.createStaff()));
@@ -110,11 +111,20 @@ public class ModItems {
             STAFFS.add(staffItem);
             STAFF_CORE_COMPATIBILITY.putIfAbsent(staffItem.getStaff().getType(), new ArrayList<>());
             STAFF_CORE_COMPATIBILITY.get(staffItem.getStaff().getType()).add(staffItem.getCore().getType());
+            GENERATE_STAFF_FROM_COMPONENTS.put(staffItem.getStaff().getType().toString() + ":" + staffItem.getCore().getType().toString(), staffItem);
         }
         return Registry.register(Registries.ITEM, new Identifier(TheStaffAwakens.MOD_ID, name), item);
     }
 
     public static void registerModItems() {
         TheStaffAwakens.LOGGER.info("Registering ModItems for " + TheStaffAwakens.MOD_ID);
+    }
+
+    public static boolean isExistingStaff(StaffTypes staff, CoreTypes core) {
+        return STAFF_CORE_COMPATIBILITY.get(staff).contains(core);
+    }
+
+    public static StaffItem createStaffFromComponents(StaffTypes staff, CoreTypes core) {
+        return GENERATE_STAFF_FROM_COMPONENTS.get(staff.toString() + ":" + core.toString());
     }
 }

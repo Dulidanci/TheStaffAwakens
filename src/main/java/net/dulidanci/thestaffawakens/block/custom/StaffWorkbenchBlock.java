@@ -87,25 +87,27 @@ public class StaffWorkbenchBlock extends BlockWithEntity {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (!world.isClient) {
-            StaffWorkbenchBlockEntity blockEntity = (StaffWorkbenchBlockEntity) world.getBlockEntity(pos);
-            if (player.getStackInHand(hand).getItem() instanceof StaffItem) {
-                if (blockEntity.attemptInsertingStaff(player, hand)) {
-                    return ActionResult.SUCCESS;
-                }
-            }
-            if (player.isSneaking() && player.getStackInHand(hand).isEmpty()) {
-                if (blockEntity.attemptRemovingStaff(player, hand)) {
-                    return ActionResult.SUCCESS;
-                }
-            }
+        if (world.isClient) {
+            return ActionResult.SUCCESS;
+        } else {
+            BlockEntity blockEntity = world.getBlockEntity(pos);
+            if (blockEntity instanceof StaffWorkbenchBlockEntity staffWorkbenchBlockEntity) {
 
-            if (blockEntity != null) {
-                player.openHandledScreen(blockEntity);
+                if (player.getStackInHand(hand).getItem() instanceof StaffItem && !staffWorkbenchBlockEntity.hasStaff()) {
+                    staffWorkbenchBlockEntity.insertStaff(player, hand);
+
+                } else if (player.isSneaking() && player.getStackInHand(hand).isEmpty() && staffWorkbenchBlockEntity.hasStaff()) {
+                    staffWorkbenchBlockEntity.removeStaff(player, hand);
+
+                } else {
+                    player.openHandledScreen(staffWorkbenchBlockEntity);
+                }
+
+                staffWorkbenchBlockEntity.markDirty();
+                return ActionResult.SUCCESS;
             }
-            blockEntity.markDirty();
+            return ActionResult.CONSUME;
         }
-        return ActionResult.SUCCESS;
     }
 
     @Override
