@@ -2,7 +2,6 @@ package net.dulidanci.thestaffawakens.block.custom;
 
 import com.mojang.serialization.MapCodec;
 import net.dulidanci.thestaffawakens.block.entity.StaffWorkbenchBlockEntity;
-import net.dulidanci.thestaffawakens.item.custom.StaffItem;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -93,17 +92,12 @@ public class StaffWorkbenchBlock extends BlockWithEntity {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof StaffWorkbenchBlockEntity staffWorkbenchBlockEntity) {
 
-                if (player.getStackInHand(hand).getItem() instanceof StaffItem && !staffWorkbenchBlockEntity.hasStaff()) {
-                    staffWorkbenchBlockEntity.insertStaff(player, hand);
-
-                } else if (player.isSneaking() && player.getStackInHand(hand).isEmpty() && staffWorkbenchBlockEntity.hasStaff()) {
-                    staffWorkbenchBlockEntity.removeStaff(player, hand);
-
-                } else {
-                    player.openHandledScreen(staffWorkbenchBlockEntity);
+                if (!staffWorkbenchBlockEntity.attemptInsertingStaff(player, hand)) {
+                    if (!staffWorkbenchBlockEntity.attemptRemovingStaff(player, hand)) {
+                        player.openHandledScreen(staffWorkbenchBlockEntity);
+                    }
                 }
 
-                staffWorkbenchBlockEntity.markDirty();
                 return ActionResult.SUCCESS;
             }
             return ActionResult.CONSUME;

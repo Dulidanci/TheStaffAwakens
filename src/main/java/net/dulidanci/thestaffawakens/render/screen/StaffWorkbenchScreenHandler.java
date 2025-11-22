@@ -36,8 +36,13 @@ public class StaffWorkbenchScreenHandler extends ScreenHandler {
             public boolean canTakeItems(PlayerEntity playerEntity) {
                 return false;
             }
+
+            @Override
+            public boolean isEnabled() {
+                return false;
+            }
         });
-        this.addSlot(new Slot(inventory, 1, 20, 29));
+        this.addSlot(new Slot(inventory, 1, 9, 52));
         this.addSlot(new Slot(inventory, 2, 40, 29) {
             @Override
             public boolean canInsert(ItemStack stack) {
@@ -48,9 +53,14 @@ public class StaffWorkbenchScreenHandler extends ScreenHandler {
             public boolean canTakeItems(PlayerEntity playerEntity) {
                 return false;
             }
+
+            @Override
+            public boolean isEnabled() {
+                return false;
+            }
         });
-        this.addSlot(new Slot(inventory, 3, 130, 29));
-        this.addSlot(new Slot(inventory, 4, 150, 29) {
+        this.addSlot(new Slot(inventory, 3, 35, 52));
+        this.addSlot(new Slot(inventory, 4, 84, 52) {
             @Override
             public boolean canInsert(ItemStack stack) {
                 return false;
@@ -108,4 +118,14 @@ public class StaffWorkbenchScreenHandler extends ScreenHandler {
     public boolean canUse(PlayerEntity player) {
         return this.inventory.canPlayerUse(player);
     }
+
+//    @Override
+//    public void onContentChanged(Inventory inventory) {
+//        if (inventory instanceof StaffWorkbenchBlockEntity staffWorkbenchBlockEntity) {
+//            staffWorkbenchBlockEntity.updateStaff();
+//            staffWorkbenchBlockEntity.markDirty();
+//            staffWorkbenchBlockEntity.sync();
+//        }
+//        super.onContentChanged(inventory);
+//    }
 }

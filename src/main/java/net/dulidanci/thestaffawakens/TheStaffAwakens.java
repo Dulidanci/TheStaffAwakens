@@ -11,6 +11,7 @@ import net.dulidanci.thestaffawakens.item.cores.BellCore;
 import net.dulidanci.thestaffawakens.item.cores.CoreTypes;
 import net.dulidanci.thestaffawakens.item.cores.LapisLazuliCore;
 import net.dulidanci.thestaffawakens.item.custom.StaffItem;
+import net.dulidanci.thestaffawakens.network.ModPackets;
 import net.dulidanci.thestaffawakens.render.screen.ModScreenHandlers;
 import net.dulidanci.thestaffawakens.util.EntityTimerManager;
 import net.dulidanci.thestaffawakens.util.ManaSupplier;
@@ -50,6 +51,8 @@ public class TheStaffAwakens implements ModInitializer {
 		PlayerItemTracker.register();
 		EntityTimerManager.register();
 		ManaSupplier.register();
+
+		ModPackets.registerServer();
 
 		AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
 			// Your custom logic here
