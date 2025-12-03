@@ -35,6 +35,14 @@
   "block.thestaffawakens.staff_workbench": "Staff Workbench",
 
   "gui.thestaffawakens.staff_workbench": "Staff Workbench",
+  "gui.thestaffawakens.staff_workbench.line_1": "Mana Cost:",
+  "gui.thestaffawakens.staff_workbench.line_2": "%s Mana",
+  "gui.thestaffawakens.staff_workbench.line_3": "Recharge:",
+  "gui.thestaffawakens.staff_workbench.line_4": "%s s",
+  "gui.thestaffawakens.staff_workbench.line_5": "Upgrade:",
+  "gui.thestaffawakens.staff_workbench.line_6": "%s Lv",
+  "gui.thestaffawakens.staff_workbench.no_core": "Equip a Core to see it's stats!",
+  "gui.thestaffawakens.staff_workbench.wrong_core": "This Core is incompatible with the Staff!",
 
   "enchantment.thestaffawakens.magical": "Magical",
 

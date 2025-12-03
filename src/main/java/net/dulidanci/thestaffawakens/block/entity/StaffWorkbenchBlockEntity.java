@@ -41,11 +41,13 @@ public class StaffWorkbenchBlockEntity extends BlockEntity implements ExtendedSc
     private static final int UPGRADE_ITEM_SLOT = 3;
     private static final int UPGRADED_BASE_SLOT = 4;
     private boolean hasStaff;
+    private boolean canUpgrade;
     private ItemStack renderStack = ItemStack.EMPTY;
 
     public StaffWorkbenchBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.STAFF_WORKBENCH_BLOCK_ENTITY, pos, state);
         this.hasStaff = false;
+        this.canUpgrade = false;
     }
 
     @Override
@@ -87,29 +89,34 @@ public class StaffWorkbenchBlockEntity extends BlockEntity implements ExtendedSc
         if (baseStack.isEmpty() || !(baseStack.getItem() instanceof StaffItem staffItem)) {
             this.inventory.set(STAFF_SLOT, ItemStack.EMPTY);
             this.inventory.set(UPGRADED_BASE_SLOT, ItemStack.EMPTY);
-            return;
-        }
-
-        StaffTypes staffType = staffItem.getStaff().getType();
-        Map<Item, StaffTypes> upgrades = staffType.getUpgrades();
-        StaffTypes upgradedStaff = upgrades.get(upgradeStack.getItem());
-
-        if (coreStack.isEmpty() || !(coreStack.getItem() instanceof BlockItem blockItem)) {
-            this.inventory.set(STAFF_SLOT, baseStack);
-            if (upgradedStaff != null) {
-                this.inventory.set(UPGRADED_BASE_SLOT, new ItemStack(upgradedStaff.getItem()));
-            } else {
-                this.inventory.set(UPGRADED_BASE_SLOT, ItemStack.EMPTY);
-            }
+            canUpgrade = false;
         } else {
-            CoreTypes coreType = CoreTypes.getCoreFromBlock(blockItem.getBlock());
-            ItemStack staffStack = ModItems.isExistingStaff(staffType, coreType) ? new ItemStack(ModItems.createStaffFromComponents(staffType, coreType)) : baseStack;
-            this.inventory.set(STAFF_SLOT, staffStack);
-            if (upgradedStaff != null) {
-                ItemStack upgradedStaffStack = ModItems.isExistingStaff(upgradedStaff, coreType) ? new ItemStack(ModItems.createStaffFromComponents(upgradedStaff, coreType)) : new ItemStack(upgradedStaff.getItem());
-                this.inventory.set(UPGRADED_BASE_SLOT, upgradedStaffStack);
+
+            StaffTypes staffType = staffItem.getStaff().getType();
+            Map<Item, StaffTypes> upgrades = staffType.getUpgrades();
+            StaffTypes upgradedStaff = upgrades.get(upgradeStack.getItem());
+
+            if (coreStack.isEmpty() || !(coreStack.getItem() instanceof BlockItem blockItem)) {
+                this.inventory.set(STAFF_SLOT, baseStack);
+                if (upgradedStaff != null) {
+                    this.inventory.set(UPGRADED_BASE_SLOT, new ItemStack(upgradedStaff.getItem()));
+                    canUpgrade = true;
+                } else {
+                    this.inventory.set(UPGRADED_BASE_SLOT, ItemStack.EMPTY);
+                    canUpgrade = false;
+                }
             } else {
-                this.inventory.set(UPGRADED_BASE_SLOT, ItemStack.EMPTY);
+                CoreTypes coreType = CoreTypes.getCoreFromBlock(blockItem.getBlock());
+                ItemStack staffStack = ModItems.isExistingStaff(staffType, coreType) ? new ItemStack(ModItems.createStaffFromComponents(staffType, coreType)) : baseStack;
+                this.inventory.set(STAFF_SLOT, staffStack);
+                if (upgradedStaff != null) {
+                    ItemStack upgradedStaffStack = ModItems.isExistingStaff(upgradedStaff, coreType) ? new ItemStack(ModItems.createStaffFromComponents(upgradedStaff, coreType)) : new ItemStack(upgradedStaff.getItem());
+                    this.inventory.set(UPGRADED_BASE_SLOT, upgradedStaffStack);
+                    canUpgrade = true;
+                } else {
+                    this.inventory.set(UPGRADED_BASE_SLOT, ItemStack.EMPTY);
+                    canUpgrade = false;
+                }
             }
         }
         markDirty();
@@ -263,6 +270,18 @@ public class StaffWorkbenchBlockEntity extends BlockEntity implements ExtendedSc
 
     public boolean hasStaff() {
         return hasStaff;
+    }
+
+    public boolean canUpgrade() {
+        return canUpgrade;
+    }
+
+    public boolean shouldRenderStats() {
+        return !inventory.get(STAFF_SLOT).isEmpty();
+    }
+
+    public boolean shouldRenderUpgrades() {
+        return !inventory.get(STAFF_SLOT).isEmpty() && !inventory.get(UPGRADE_ITEM_SLOT).isEmpty();
     }
 
     @Nullable

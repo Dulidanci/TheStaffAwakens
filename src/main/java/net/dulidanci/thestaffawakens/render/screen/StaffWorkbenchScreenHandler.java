@@ -7,12 +7,15 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.ArrayPropertyDelegate;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 
 public class StaffWorkbenchScreenHandler extends ScreenHandler {
     private final Inventory inventory;
     public final StaffWorkbenchBlockEntity blockEntity;
+    private final PropertyDelegate properties;
 
     public StaffWorkbenchScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
         this(syncId, inventory, inventory.player.getWorld().getBlockEntity(buf.readBlockPos()));
@@ -25,6 +28,9 @@ public class StaffWorkbenchScreenHandler extends ScreenHandler {
         this.inventory = (Inventory) blockEntity;
         playerInventory.onOpen(playerInventory.player);
         this.blockEntity = (StaffWorkbenchBlockEntity) blockEntity;
+
+        this.properties = new ArrayPropertyDelegate(3);
+        this.addProperties(this.properties);
 
         this.addSlot(new Slot(inventory, 0, 0, 29) {
             @Override
@@ -117,6 +123,30 @@ public class StaffWorkbenchScreenHandler extends ScreenHandler {
     @Override
     public boolean canUse(PlayerEntity player) {
         return this.inventory.canPlayerUse(player);
+    }
+
+    public void setManaCost(int cost) {
+        this.properties.set(0, cost);
+    }
+
+    public void setRechargeTime(int time) {
+        this.properties.set(1, time);
+    }
+
+    public void setUpgradeCost(int cost) {
+        this.properties.set(2, cost);
+    }
+
+    public int getManaCost() {
+        return this.properties.get(0);
+    }
+
+    public int getRechargeTime() {
+        return this.properties.get(1);
+    }
+
+    public int getUpgradeCost() {
+        return this.properties.get(2);
     }
 
 //    @Override
