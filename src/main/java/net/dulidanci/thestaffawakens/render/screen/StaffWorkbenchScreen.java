@@ -39,8 +39,6 @@ public class StaffWorkbenchScreen extends HandledScreen<StaffWorkbenchScreenHand
     private static final Identifier UPGRADE_TEXT_FIELD_DISABLED_TEXTURE = new Identifier(TheStaffAwakens.MOD_ID, "staff_workbench/upgrade_text_field_disabled");
     private final PlayerEntity player;
     private UpgradeArrowButton upgradeArrow;
-    public int manaCost;
-    public int rechargeTime;
     public int upgradeCost;
 
     public StaffWorkbenchScreen(StaffWorkbenchScreenHandler handler, PlayerInventory inventory, Text title) {
@@ -67,6 +65,22 @@ public class StaffWorkbenchScreen extends HandledScreen<StaffWorkbenchScreenHand
         return handler.blockEntity.shouldRenderUpgrades();
     }
 
+    public boolean hasCore() {
+        return handler.blockEntity.hasCore();
+    }
+
+    public boolean hasIncorrectCore() {
+        return !handler.blockEntity.hasCorrectCore();
+    }
+
+    public boolean cannotUpgrade() {
+        return !handler.blockEntity.canUpgrade();
+    }
+
+    public boolean maxLevel() {
+        return handler.blockEntity.maxLevel();
+    }
+
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         update();
@@ -81,31 +95,61 @@ public class StaffWorkbenchScreen extends HandledScreen<StaffWorkbenchScreenHand
     protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
         super.drawForeground(context, mouseX, mouseY);
         if (shouldRenderStats()) {
-//            int mana = handler.getManaCost();
-            int mana = 8;
-            int time = 5;
-            new TextWidget(109, 11, 56, 10, Text.translatable("gui.thestaffawakens.staff_workbench.line_1"), this.textRenderer)
-                    .alignLeft()
-                    .render(context, mouseX, mouseY, 0);
-            new TextWidget(109, 21, 56, 10, Text.translatable("gui.thestaffawakens.staff_workbench.line_2", mana), this.textRenderer)
-                    .alignRight()
-                    .render(context, mouseX, mouseY, 0);
-            new TextWidget(109, 31, 56, 10, Text.translatable("gui.thestaffawakens.staff_workbench.line_3"), this.textRenderer)
-                    .alignLeft()
-                    .render(context, mouseX, mouseY, 0);
-            new TextWidget(109, 41, 56, 10, Text.translatable("gui.thestaffawakens.staff_workbench.line_4", time), this.textRenderer)
-                    .alignRight()
-                    .render(context, mouseX, mouseY, 0);
+            if (!hasCore()) {
+                MultilineTextWidget textWidget = new MultilineTextWidget(109, 11, Text.translatable("gui.thestaffawakens.staff_workbench.no_core"), this.textRenderer)
+                        .setMaxWidth(56)
+                        .setCentered(true);
+                textWidget.setPosition(137 - textWidget.getWidth() / 2, 11);
+                textWidget.render(context, mouseX, mouseY, 0);
+            } else if (hasIncorrectCore()) {
+                MultilineTextWidget textWidget = new MultilineTextWidget(109, 11, Text.translatable("gui.thestaffawakens.staff_workbench.wrong_core"), this.textRenderer)
+                        .setMaxWidth(56)
+                        .setCentered(true);
+                textWidget.setPosition(137 - textWidget.getWidth() / 2, 11);
+                textWidget.render(context, mouseX, mouseY, 0);
+            } else {
+                int mana = handler.getManaCost();
+                int time = handler.getRechargeTime();
+                new TextWidget(109, 11, 56, 10, Text.translatable("gui.thestaffawakens.staff_workbench.line_1"), this.textRenderer)
+                        .alignLeft()
+                        .render(context, mouseX, mouseY, 0);
+                new TextWidget(109, 21, 56, 10, Text.translatable("gui.thestaffawakens.staff_workbench.line_2", mana), this.textRenderer)
+                        .alignRight()
+                        .setTextColor(13345023)
+                        .render(context, mouseX, mouseY, 0);
+                new TextWidget(109, 31, 56, 10, Text.translatable("gui.thestaffawakens.staff_workbench.line_3"), this.textRenderer)
+                        .alignLeft()
+                        .render(context, mouseX, mouseY, 0);
+                new TextWidget(109, 41, 56, 10, Text.translatable("gui.thestaffawakens.staff_workbench.line_4", time), this.textRenderer)
+                        .alignRight()
+                        .setTextColor(13310490)
+                        .render(context, mouseX, mouseY, 0);
+            }
         }
 
         if (shouldRenderUpgrades()) {
-            int level = 10;
-            new TextWidget(109, 57, 56, 10, Text.translatable("gui.thestaffawakens.staff_workbench.line_5"), this.textRenderer)
-                    .alignLeft()
-                    .render(context, mouseX, mouseY, 0);
-            new TextWidget(109, 67, 56, 10, Text.translatable("gui.thestaffawakens.staff_workbench.line_6", level), this.textRenderer)
-                    .alignRight()
-                    .render(context, mouseX, mouseY, 0);
+            if (maxLevel()) {
+                MultilineTextWidget textWidget = new MultilineTextWidget(109, 57, Text.translatable("gui.thestaffawakens.staff_workbench.max_level"), this.textRenderer)
+                        .setMaxWidth(56)
+                        .setCentered(true);
+                textWidget.setPosition(137 - textWidget.getWidth() / 2, 57);
+                textWidget.render(context, mouseX, mouseY, 0);
+            } else if (cannotUpgrade()) {
+                MultilineTextWidget textWidget = new MultilineTextWidget(109, 57, Text.translatable("gui.thestaffawakens.staff_workbench.wrong_upgrade"), this.textRenderer)
+                        .setMaxWidth(56)
+                        .setCentered(true);
+                textWidget.setPosition(137 - textWidget.getWidth() / 2, 57);
+                textWidget.render(context, mouseX, mouseY, 0);
+            } else {
+                int level = handler.getUpgradeCost();
+                new TextWidget(109, 57, 56, 10, Text.translatable("gui.thestaffawakens.staff_workbench.line_5"), this.textRenderer)
+                        .alignLeft()
+                        .render(context, mouseX, mouseY, 0);
+                new TextWidget(109, 67, 56, 10, Text.translatable("gui.thestaffawakens.staff_workbench.line_6", level), this.textRenderer)
+                        .alignRight()
+                        .setTextColor(player.experienceLevel >= level || player.getAbilities().creativeMode ? 8453920 : 16736352)
+                        .render(context, mouseX, mouseY, 0);
+            }
         }
     }
 

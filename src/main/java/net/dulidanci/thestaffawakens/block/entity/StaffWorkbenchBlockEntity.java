@@ -13,6 +13,9 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.InventoryChangedListener;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,6 +24,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
@@ -33,8 +37,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-public class StaffWorkbenchBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
-    private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(5, ItemStack.EMPTY);
+public class StaffWorkbenchBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory, InventoryChangedListener {
+    private final SimpleInventory inventory = new SimpleInventory(5);
     private static final int STAFF_SLOT = 0;
     private static final int CORE_SLOT = 1;
     private static final int BASE_SLOT = 2;
@@ -43,16 +47,50 @@ public class StaffWorkbenchBlockEntity extends BlockEntity implements ExtendedSc
     private boolean hasStaff;
     private boolean canUpgrade;
     private ItemStack renderStack = ItemStack.EMPTY;
+    private int mana;
+    private int recharge;
+    private int level;
+    private final PropertyDelegate propertyDelegate = new PropertyDelegate() {
+        @Override
+        public int get(int index) {
+            return switch (index) {
+                case 0 -> StaffWorkbenchBlockEntity.this.mana;
+                case 1 -> StaffWorkbenchBlockEntity.this.recharge;
+                case 2 -> StaffWorkbenchBlockEntity.this.level;
+                default -> 0;
+            };
+        }
+
+        @Override
+        public void set(int index, int value) {
+            switch (index) {
+                case 0:
+                    StaffWorkbenchBlockEntity.this.mana = value;
+                    break;
+                case 1:
+                    StaffWorkbenchBlockEntity.this.recharge = value;
+                    break;
+                case 2:
+                    StaffWorkbenchBlockEntity.this.level = value;
+            }
+        }
+
+        @Override
+        public int size() {
+            return 3;
+        }
+    };
 
     public StaffWorkbenchBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.STAFF_WORKBENCH_BLOCK_ENTITY, pos, state);
         this.hasStaff = false;
         this.canUpgrade = false;
+        inventory.addListener(this);
     }
 
     @Override
     public DefaultedList<ItemStack> getItems() {
-        return inventory;
+        return inventory.heldStacks;
     }
 
     public ItemStack getRenderStack() {
@@ -61,35 +99,41 @@ public class StaffWorkbenchBlockEntity extends BlockEntity implements ExtendedSc
 
     @Override
     public void setStack(int slot, ItemStack stack) {
-        inventory.set(slot, stack);
-        updateStaff();
+        inventory.setStack(slot, stack);
     }
 
     public void modifyInventoryBeforeBreaking() {
-        if (!inventory.get(STAFF_SLOT).isEmpty()) inventory.get(STAFF_SLOT).decrement(1);
-        if (!inventory.get(UPGRADED_BASE_SLOT).isEmpty()) inventory.get(UPGRADED_BASE_SLOT).decrement(1);
+        if (!inventory.getStack(STAFF_SLOT).isEmpty()) inventory.getStack(STAFF_SLOT).decrement(1);
+        if (!inventory.getStack(UPGRADED_BASE_SLOT).isEmpty()) inventory.getStack(UPGRADED_BASE_SLOT).decrement(1);
     }
 
     @Override
     public void markDirty() {
         super.markDirty();
-    }
-
-    public void sync() {
         if (world != null && !world.isClient) {
             world.updateListeners(pos, getCachedState(), getCachedState(), Block.NOTIFY_ALL);
         }
     }
 
+    @Override
+    public void onInventoryChanged(Inventory sender) {
+        updateStaff();
+        markDirty();
+    }
+
     public void updateStaff() {
-        ItemStack coreStack = this.inventory.get(CORE_SLOT);
-        ItemStack baseStack = this.inventory.get(BASE_SLOT);
-        ItemStack upgradeStack = this.inventory.get(UPGRADE_ITEM_SLOT);
+        ItemStack coreStack = this.inventory.getStack(CORE_SLOT);
+        ItemStack baseStack = this.inventory.getStack(BASE_SLOT);
+        ItemStack upgradeStack = this.inventory.getStack(UPGRADE_ITEM_SLOT);
 
         if (baseStack.isEmpty() || !(baseStack.getItem() instanceof StaffItem staffItem)) {
-            this.inventory.set(STAFF_SLOT, ItemStack.EMPTY);
-            this.inventory.set(UPGRADED_BASE_SLOT, ItemStack.EMPTY);
+            if (!this.inventory.getStack(STAFF_SLOT).equals(ItemStack.EMPTY))
+                    this.inventory.setStack(STAFF_SLOT, ItemStack.EMPTY);
+            if (!this.inventory.getStack(UPGRADED_BASE_SLOT).equals(ItemStack.EMPTY))
+                    this.inventory.setStack(UPGRADED_BASE_SLOT, ItemStack.EMPTY);
             canUpgrade = false;
+            mana = 0;
+            level = 0;
         } else {
 
             StaffTypes staffType = staffItem.getStaff().getType();
@@ -97,30 +141,41 @@ public class StaffWorkbenchBlockEntity extends BlockEntity implements ExtendedSc
             StaffTypes upgradedStaff = upgrades.get(upgradeStack.getItem());
 
             if (coreStack.isEmpty() || !(coreStack.getItem() instanceof BlockItem blockItem)) {
-                this.inventory.set(STAFF_SLOT, baseStack);
+                if (!this.inventory.getStack(STAFF_SLOT).isOf(baseStack.getItem()))
+                        this.inventory.setStack(STAFF_SLOT, baseStack);
+                mana = 0;
                 if (upgradedStaff != null) {
-                    this.inventory.set(UPGRADED_BASE_SLOT, new ItemStack(upgradedStaff.getItem()));
+                    if (!this.inventory.getStack(UPGRADED_BASE_SLOT).isOf(upgradedStaff.getItem()))
+                            this.inventory.setStack(UPGRADED_BASE_SLOT, new ItemStack(upgradedStaff.getItem()));
                     canUpgrade = true;
+                    level = upgradedStaff.getUpgradeCost();
                 } else {
-                    this.inventory.set(UPGRADED_BASE_SLOT, ItemStack.EMPTY);
+                    if (!this.inventory.getStack(UPGRADED_BASE_SLOT).isOf(ItemStack.EMPTY.getItem()))
+                            this.inventory.setStack(UPGRADED_BASE_SLOT, ItemStack.EMPTY);
                     canUpgrade = false;
+                    level = 0;
                 }
             } else {
                 CoreTypes coreType = CoreTypes.getCoreFromBlock(blockItem.getBlock());
                 ItemStack staffStack = ModItems.isExistingStaff(staffType, coreType) ? new ItemStack(ModItems.createStaffFromComponents(staffType, coreType)) : baseStack;
-                this.inventory.set(STAFF_SLOT, staffStack);
+                if (!this.inventory.getStack(STAFF_SLOT).isOf(staffStack.getItem()))
+                        this.inventory.setStack(STAFF_SLOT, staffStack);
+                mana = coreType.getManaCost();
                 if (upgradedStaff != null) {
                     ItemStack upgradedStaffStack = ModItems.isExistingStaff(upgradedStaff, coreType) ? new ItemStack(ModItems.createStaffFromComponents(upgradedStaff, coreType)) : new ItemStack(upgradedStaff.getItem());
-                    this.inventory.set(UPGRADED_BASE_SLOT, upgradedStaffStack);
+                    if (!this.inventory.getStack(UPGRADED_BASE_SLOT).isOf(upgradedStaffStack.getItem()))
+                            this.inventory.setStack(UPGRADED_BASE_SLOT, upgradedStaffStack);
                     canUpgrade = true;
+                    level = upgradedStaff.getUpgradeCost();
                 } else {
-                    this.inventory.set(UPGRADED_BASE_SLOT, ItemStack.EMPTY);
+                    if (!this.inventory.getStack(UPGRADED_BASE_SLOT).isOf(ItemStack.EMPTY.getItem()))
+                            this.inventory.setStack(UPGRADED_BASE_SLOT, ItemStack.EMPTY);
                     canUpgrade = false;
+                    level = 0;
                 }
             }
         }
         markDirty();
-        sync();
     }
 
     public boolean attemptInsertingStaff(PlayerEntity player, Hand hand) {
@@ -133,31 +188,27 @@ public class StaffWorkbenchBlockEntity extends BlockEntity implements ExtendedSc
 
     private void insertStaff(PlayerEntity player, Hand hand) {
         hasStaff = true;
-        this.inventory.set(BASE_SLOT, new ItemStack(((StaffItem) player.getStackInHand(hand).getItem()).getStaff().getType().getItem()));
+        this.inventory.setStack(BASE_SLOT, new ItemStack(((StaffItem) player.getStackInHand(hand).getItem()).getStaff().getType().getItem()));
 
         if (((StaffItem) player.getStackInHand(hand).getItem()).getCore().getType() != CoreTypes.AIR) {
-            if (inventory.get(CORE_SLOT).getItem() != ((StaffItem) player.getStackInHand(hand).getItem()).getCore().getType().getBlock().asItem()) {
+            if (inventory.getStack(CORE_SLOT).getItem() != ((StaffItem) player.getStackInHand(hand).getItem()).getCore().getType().getBlock().asItem()) {
                 if (world != null) {
-                    ItemScatterer.spawn(world, pos.add(0, 1, 0), DefaultedList.ofSize(1, inventory.get(CORE_SLOT)));
+                    ItemScatterer.spawn(world, pos.add(0, 1, 0), DefaultedList.ofSize(1, inventory.getStack(CORE_SLOT)));
 
-                    this.inventory.set(CORE_SLOT, new ItemStack(((StaffItem) player.getStackInHand(hand).getItem()).getCore().getType().getBlock().asItem()));
+                    this.inventory.setStack(CORE_SLOT, new ItemStack(((StaffItem) player.getStackInHand(hand).getItem()).getCore().getType().getBlock().asItem()));
                 }
             } else {
-                if (inventory.get(CORE_SLOT).getCount() == 64) {
+                if (inventory.getStack(CORE_SLOT).getCount() == 64) {
                     if (world != null) {
-                        ItemScatterer.spawn(world, pos.add(0, 1, 0), DefaultedList.ofSize(1, new ItemStack(inventory.get(CORE_SLOT).getItem(), 1)));
+                        ItemScatterer.spawn(world, pos.add(0, 1, 0), DefaultedList.ofSize(1, new ItemStack(inventory.getStack(CORE_SLOT).getItem(), 1)));
                     }
                 } else {
-                    inventory.get(CORE_SLOT).increment(1);
+                    inventory.getStack(CORE_SLOT).increment(1);
                 }
             }
         }
-        this.inventory.set(STAFF_SLOT, player.getStackInHand(hand));
+        this.inventory.setStack(STAFF_SLOT, player.getStackInHand(hand));
         player.setStackInHand(hand, ItemStack.EMPTY);
-
-        updateStaff();
-        markDirty();
-        sync();
     }
 
     public boolean attemptRemovingStaff(PlayerEntity player, Hand hand) {
@@ -171,22 +222,18 @@ public class StaffWorkbenchBlockEntity extends BlockEntity implements ExtendedSc
     private void removeStaff(PlayerEntity player, Hand hand) {
         hasStaff = false;
         player.setStackInHand(hand, this.getStack(STAFF_SLOT));
-        if (inventory.get(STAFF_SLOT).getItem() instanceof StaffItem staffItem && !staffItem.getCore().getType().equals(CoreTypes.AIR)) {
-            inventory.get(CORE_SLOT).decrement(1);
-            if (inventory.get(CORE_SLOT).isEmpty()) {
-                inventory.set(CORE_SLOT, ItemStack.EMPTY);
+        if (inventory.getStack(STAFF_SLOT).getItem() instanceof StaffItem staffItem && !staffItem.getCore().getType().equals(CoreTypes.AIR)) {
+            inventory.getStack(CORE_SLOT).decrement(1);
+            if (inventory.getStack(CORE_SLOT).isEmpty()) {
+                inventory.setStack(CORE_SLOT, ItemStack.EMPTY);
             }
         }
-        this.inventory.set(BASE_SLOT, ItemStack.EMPTY);
-        this.inventory.set(STAFF_SLOT, ItemStack.EMPTY);
-
-        updateStaff();
-        markDirty();
-        sync();
+        this.inventory.setStack(BASE_SLOT, ItemStack.EMPTY);
+        this.inventory.setStack(STAFF_SLOT, ItemStack.EMPTY);
     }
 
     public boolean canUpgradeStaff() {
-        return inventory.get(UPGRADED_BASE_SLOT) != ItemStack.EMPTY;
+        return inventory.getStack(UPGRADED_BASE_SLOT) != ItemStack.EMPTY;
     }
 
     public void attemptUpgradingStaff() {
@@ -196,19 +243,15 @@ public class StaffWorkbenchBlockEntity extends BlockEntity implements ExtendedSc
     }
 
     private void upgradeStaff() {
-        inventory.set(BASE_SLOT, ((StaffItem) (inventory.get(UPGRADED_BASE_SLOT).getItem())).getStaff().getType().getItem().getDefaultStack());
-        inventory.get(UPGRADE_ITEM_SLOT).decrement(1);
-        if (inventory.get(UPGRADE_ITEM_SLOT).isEmpty()) {
-            inventory.set(UPGRADE_ITEM_SLOT, ItemStack.EMPTY);
+        inventory.setStack(BASE_SLOT, ((StaffItem) (inventory.getStack(UPGRADED_BASE_SLOT).getItem())).getStaff().getType().getItem().getDefaultStack());
+        inventory.getStack(UPGRADE_ITEM_SLOT).decrement(1);
+        if (inventory.getStack(UPGRADE_ITEM_SLOT).isEmpty()) {
+            inventory.setStack(UPGRADE_ITEM_SLOT, ItemStack.EMPTY);
         }
-
-        updateStaff();
-        markDirty();
-        sync();
     }
 
     public int getUpgradeCost() {
-        if (!inventory.get(UPGRADED_BASE_SLOT).isEmpty() && inventory.get(UPGRADED_BASE_SLOT).getItem() instanceof StaffItem staffItem) {
+        if (!inventory.getStack(UPGRADED_BASE_SLOT).isEmpty() && inventory.getStack(UPGRADED_BASE_SLOT).getItem() instanceof StaffItem staffItem) {
             return staffItem.getStaff().getType().getUpgradeCost();
         }
         return 0;
@@ -228,26 +271,36 @@ public class StaffWorkbenchBlockEntity extends BlockEntity implements ExtendedSc
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         nbt.putBoolean("hasStaff", hasStaff);
-        Inventories.writeNbt(nbt, inventory);
+//        nbt.putBoolean("canUpgrade", canUpgrade);
+        Inventories.writeNbt(nbt, inventory.getHeldStacks());
 
         NbtCompound itemNbt = new NbtCompound();
-        inventory.get(STAFF_SLOT).writeNbt(itemNbt);
+        inventory.getStack(STAFF_SLOT).writeNbt(itemNbt);
         nbt.put("DisplayedStaff", itemNbt);
+
+        nbt.putInt("Mana", this.mana);
+        nbt.putInt("Recharge", this.recharge);
+        nbt.putInt("Level", this.level);
     }
 
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
-        hasStaff = nbt.getBoolean("hasStaff");
-        Inventories.readNbt(nbt, inventory);
+        this.hasStaff = nbt.getBoolean("hasStaff");
+//        this.canUpgrade = nbt.getBoolean("canUpgrade");
+        Inventories.readNbt(nbt, inventory.getHeldStacks());
 
         renderStack = ItemStack.fromNbt(nbt.getCompound("DisplayedStaff"));
+
+        this.mana = nbt.getInt("Mana");
+        this.recharge = nbt.getInt("Recharge");
+        this.level = nbt.getInt("Level");
     }
 
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new StaffWorkbenchScreenHandler(syncId, playerInventory, this);
+        return new StaffWorkbenchScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 
     @Override
@@ -277,11 +330,23 @@ public class StaffWorkbenchBlockEntity extends BlockEntity implements ExtendedSc
     }
 
     public boolean shouldRenderStats() {
-        return !inventory.get(STAFF_SLOT).isEmpty();
+        return !inventory.getStack(STAFF_SLOT).isEmpty();
     }
 
     public boolean shouldRenderUpgrades() {
-        return !inventory.get(STAFF_SLOT).isEmpty() && !inventory.get(UPGRADE_ITEM_SLOT).isEmpty();
+        return !inventory.getStack(STAFF_SLOT).isEmpty() && !inventory.getStack(UPGRADE_ITEM_SLOT).isEmpty();
+    }
+
+    public boolean hasCore() {
+        return !inventory.getStack(CORE_SLOT).isEmpty();
+    }
+
+    public boolean hasCorrectCore() {
+        return inventory.getStack(STAFF_SLOT).getItem() instanceof StaffItem staffItem && !staffItem.getCore().getType().equals(CoreTypes.AIR);
+    }
+
+    public boolean maxLevel() {
+        return inventory.getStack(STAFF_SLOT).getItem() instanceof StaffItem staffItem && staffItem.getStaff().getType().getUpgrades().isEmpty();
     }
 
     @Nullable

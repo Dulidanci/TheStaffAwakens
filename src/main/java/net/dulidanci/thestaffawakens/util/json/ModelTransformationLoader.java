@@ -21,9 +21,7 @@ public class ModelTransformationLoader {
         }
 
         JsonObject json = JsonLoader.loadMinecraftJsonExpecting(id);
-//        System.out.println(json);
         JsonObject display = JsonHelper.getObject(json, "display");
-//        System.out.println(display);
         ModelTransformation transformation = DisplayDeserializer.loadFromJson(display);
 
         CACHE.put(id, transformation);

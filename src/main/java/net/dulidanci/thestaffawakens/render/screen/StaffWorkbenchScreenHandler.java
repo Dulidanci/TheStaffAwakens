@@ -18,18 +18,21 @@ public class StaffWorkbenchScreenHandler extends ScreenHandler {
     private final PropertyDelegate properties;
 
     public StaffWorkbenchScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
-        this(syncId, inventory, inventory.player.getWorld().getBlockEntity(buf.readBlockPos()));
+        this(syncId, inventory, inventory.player.getWorld().getBlockEntity(buf.readBlockPos()), new ArrayPropertyDelegate(3));
     }
 
     public StaffWorkbenchScreenHandler(int syncId, PlayerInventory playerInventory,
-                                       BlockEntity blockEntity) {
+                                       BlockEntity blockEntity, PropertyDelegate propertyDelegate) {
         super(ModScreenHandlers.STAFF_WORKBENCH_SCREEN_HANDLER, syncId);
-        checkSize((Inventory) blockEntity, 5);
-        this.inventory = (Inventory) blockEntity;
-        playerInventory.onOpen(playerInventory.player);
-        this.blockEntity = (StaffWorkbenchBlockEntity) blockEntity;
 
-        this.properties = new ArrayPropertyDelegate(3);
+        this.blockEntity = (StaffWorkbenchBlockEntity) blockEntity;
+        checkSize(this.blockEntity, 5);
+        this.inventory = this.blockEntity;
+        this.inventory.onOpen(playerInventory.player);
+        playerInventory.onOpen(playerInventory.player);
+
+        checkDataCount(propertyDelegate, 3);
+        this.properties = propertyDelegate;
         this.addProperties(this.properties);
 
         this.addSlot(new Slot(inventory, 0, 0, 29) {
@@ -125,18 +128,6 @@ public class StaffWorkbenchScreenHandler extends ScreenHandler {
         return this.inventory.canPlayerUse(player);
     }
 
-    public void setManaCost(int cost) {
-        this.properties.set(0, cost);
-    }
-
-    public void setRechargeTime(int time) {
-        this.properties.set(1, time);
-    }
-
-    public void setUpgradeCost(int cost) {
-        this.properties.set(2, cost);
-    }
-
     public int getManaCost() {
         return this.properties.get(0);
     }
@@ -148,14 +139,4 @@ public class StaffWorkbenchScreenHandler extends ScreenHandler {
     public int getUpgradeCost() {
         return this.properties.get(2);
     }
-
-//    @Override
-//    public void onContentChanged(Inventory inventory) {
-//        if (inventory instanceof StaffWorkbenchBlockEntity staffWorkbenchBlockEntity) {
-//            staffWorkbenchBlockEntity.updateStaff();
-//            staffWorkbenchBlockEntity.markDirty();
-//            staffWorkbenchBlockEntity.sync();
-//        }
-//        super.onContentChanged(inventory);
-//    }
 }

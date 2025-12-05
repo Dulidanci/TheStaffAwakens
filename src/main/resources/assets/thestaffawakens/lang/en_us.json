@@ -41,8 +41,10 @@
   "gui.thestaffawakens.staff_workbench.line_4": "%s s",
   "gui.thestaffawakens.staff_workbench.line_5": "Upgrade:",
   "gui.thestaffawakens.staff_workbench.line_6": "%s Lv",
-  "gui.thestaffawakens.staff_workbench.no_core": "Equip a Core to see it's stats!",
-  "gui.thestaffawakens.staff_workbench.wrong_core": "This Core is incompatible with the Staff!",
+  "gui.thestaffawakens.staff_workbench.no_core": "Equip a core to see its stats!",
+  "gui.thestaffawakens.staff_workbench.wrong_core": "This combination does not exist!",
+  "gui.thestaffawakens.staff_workbench.max_level": "No further upgrades!",
+  "gui.thestaffawakens.staff_workbench.wrong_upgrade": "Incorrect upgrade!",
 
   "enchantment.thestaffawakens.magical": "Magical",
 

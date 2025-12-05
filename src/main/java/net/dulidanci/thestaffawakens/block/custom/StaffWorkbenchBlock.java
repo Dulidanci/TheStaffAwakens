@@ -109,13 +109,6 @@ public class StaffWorkbenchBlock extends BlockWithEntity {
         builder.add(FACING);
     }
 
-//    @Nullable
-//    @Override
-//    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-//        return validateTicker(type, ModBlockEntities.STAFF_UPGRADE_STATION_BLOCK_ENTITY,
-//                ((world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1)));
-//    }
-
     static {
         FACING = HorizontalFacingBlock.FACING;
         MAIN_BODY_SHAPE = Block.createCuboidShape(0, 3, 0, 16, 12, 16);

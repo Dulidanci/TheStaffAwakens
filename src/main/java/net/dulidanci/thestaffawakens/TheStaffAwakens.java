@@ -55,7 +55,6 @@ public class TheStaffAwakens implements ModInitializer {
 		ModPackets.registerServer();
 
 		AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
-			// Your custom logic here
 			if (!world.isClient) {
 				TrackedAnvilEntity.setTargetForAnvils(entity);
 
@@ -78,9 +77,7 @@ public class TheStaffAwakens implements ModInitializer {
 					}
 				}
 			}
-			return ActionResult.PASS; // Or CONSUME to cancel further processing
+			return ActionResult.PASS;
 		});
-
-
 	}
 }
