@@ -104,7 +104,8 @@ public class StaffWorkbenchScreen extends HandledScreen<StaffWorkbenchScreenHand
             } else if (hasIncorrectCore()) {
                 MultilineTextWidget textWidget = new MultilineTextWidget(109, 11, Text.translatable("gui.thestaffawakens.staff_workbench.wrong_core"), this.textRenderer)
                         .setMaxWidth(56)
-                        .setCentered(true);
+                        .setCentered(true)
+                        .setTextColor(16736352);
                 textWidget.setPosition(137 - textWidget.getWidth() / 2, 11);
                 textWidget.render(context, mouseX, mouseY, 0);
             } else {
@@ -122,7 +123,7 @@ public class StaffWorkbenchScreen extends HandledScreen<StaffWorkbenchScreenHand
                         .render(context, mouseX, mouseY, 0);
                 new TextWidget(109, 41, 56, 10, Text.translatable("gui.thestaffawakens.staff_workbench.line_4", time), this.textRenderer)
                         .alignRight()
-                        .setTextColor(13310490)
+                        .setTextColor(5947130)
                         .render(context, mouseX, mouseY, 0);
             }
         }

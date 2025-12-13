@@ -31,13 +31,15 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.CRYING_OBSIDIAN), conditionsFromItem(Items.CRYING_OBSIDIAN))
                 .offerTo(recipeExporter, new Identifier(getRecipeName(ModBlocks.STAFF_WORKBENCH)));
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.PERFECTED_STAFF, 1)
-                .pattern("  C")
-                .pattern(" C ")
-                .pattern("C  ")
-                .input('C', Items.COPPER_INGOT)
-                .criterion(hasItem(Items.COPPER_INGOT), conditionsFromItem(Items.COPPER_INGOT))
-                .offerTo(recipeExporter, new Identifier(getRecipeName(ModItems.PERFECTED_STAFF)));
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.LOG_STAFF, 1)
+                .pattern("  S")
+                .pattern(" P ")
+                .pattern("L  ")
+                .input('L', Ingredient.fromTag(ItemTags.LOGS))
+                .input('P', Ingredient.fromTag(ItemTags.PLANKS))
+                .input('S', Items.STICK)
+                .criterion(hasItem(Items.CRYING_OBSIDIAN), conditionsFromItem(ModBlocks.STAFF_WORKBENCH))
+                .offerTo(recipeExporter, new Identifier(getRecipeName(ModItems.LOG_STAFF)));
 
     }
 }

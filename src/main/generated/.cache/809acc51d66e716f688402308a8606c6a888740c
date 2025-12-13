@@ -1,5 +1,5 @@
-// 1.20.4	2025-10-26T21:07:08.2404815	The Staff Awakens/Recipes
-0863d2957f5dd60377facb448d6be104adf3e4ed data\thestaffawakens\recipes\staff_workbench.json
+// 1.20.4	2025-12-12T22:03:36.8680729	The Staff Awakens/Recipes
 35bd80029b77aef9b4aa2d3efce11783a660a463 data\thestaffawakens\advancements\recipes\decorations\staff_workbench.json
-d49002b19543af68112b5fbba404d26fb1eef36c data\thestaffawakens\advancements\recipes\tools\perfected_staff.json
-f5cd8b9c24c266d5a85456b4b843a44710c1949d data\thestaffawakens\recipes\perfected_staff.json
+0863d2957f5dd60377facb448d6be104adf3e4ed data\thestaffawakens\recipes\staff_workbench.json
+a08879f9b111c1a01efeacde86bd445cc8e7d83e data\thestaffawakens\recipes\log_staff.json
+b41084d7bc9aef3c9eb15ee8b83705a1d72d502c data\thestaffawakens\advancements\recipes\tools\log_staff.json

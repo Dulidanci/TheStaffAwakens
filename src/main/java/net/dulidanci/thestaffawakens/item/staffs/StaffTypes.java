@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.function.Supplier;
 
 public enum StaffTypes {
-    PERFECTED(PerfectedStaff::new, () -> ModItems.PERFECTED_STAFF, 1, Map::of),
+    PERFECTED(PerfectedStaff::new, () -> ModItems.PERFECTED_STAFF, 10, Map::of),
     LOG(LogStaff::new, () -> ModItems.LOG_STAFF, 0, () -> Map.of(Items.PURPUR_BLOCK, PERFECTED));
 
     private final Supplier<StaffTemplate> staffSupplier;

@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_copper_ingot": {
+    "has_crying_obsidian": {
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:copper_ingot"
+              "thestaffawakens:staff_workbench"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:perfected_staff"
+        "recipe": "minecraft:log_staff"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -23,12 +23,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_copper_ingot"
+      "has_crying_obsidian"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:perfected_staff"
+      "minecraft:log_staff"
     ]
   }
 }
