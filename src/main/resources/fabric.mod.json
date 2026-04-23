@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"id": "thestaffawakens",
+	"version": "${version}",
+	"name": "TheStaffAwakens",
+	"description": "This mod adds a handful of staffs from Alan Becker's AvM series, while providing a survival friendly gameplay. Mod created by Dulidanc",
+	"authors": [
+		"Dulidanci"
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/mod/the-staff-awakens",
+		"sources": "https://github.com/Dulidanci/TheStaffAwakens"
+	},
+	"license": "Apache 2.0",
+	"icon": "assets/thestaffawakens/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.dulidanci.thestaffawakens.TheStaffAwakens"
+		],
+		"fabric-datagen": [
+			"net.dulidanci.thestaffawakens.TheStaffAwakensDataGenerator"
+		]
+	},
+	"mixins": [
+		"thestaffawakens.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.2",
+		"minecraft": "~26.1.2",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
