@@ -12,14 +12,15 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-package net.dulidanci.thestaffawakens;
+package net.dulidanci.thestaffawakens.item.custom;
 
-import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.minecraft.world.item.Item;
 
-public class TheStaffAwakensDataGenerator implements DataGeneratorEntrypoint {
-	@Override
-	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
+public class StaffItem extends Item {
 
-	}
+    public StaffItem(Properties properties) {
+        super(properties);
+    }
+
+
 }
