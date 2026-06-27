@@ -15,6 +15,7 @@
 package net.dulidanci.thestaffawakens.item;
 
 import net.dulidanci.thestaffawakens.TheStaffAwakens;
+import net.dulidanci.thestaffawakens.item.custom.StaffItem;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -25,9 +26,20 @@ import net.minecraft.world.item.Item;
 import java.util.function.Function;
 
 public class ModItems {
+    public static final Item PERFECTED_STAFF = registerItem("perfected_staff", StaffItem::new,
+            new Item.Properties().stacksTo(1));
 
-    public static Item register(String name, Function<Item.Properties, Item> function) {
-        return Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath(TheStaffAwakens.MOD_ID, name),
-                function.apply(new Item.Properties().setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(TheStaffAwakens.MOD_ID, name)))));
+    private static <T extends Item> T registerItem(String name, Function<Item.Properties, T> itemFactory, Item.Properties settings) {
+        ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(TheStaffAwakens.MOD_ID, name));
+
+        T item = itemFactory.apply(settings.setId(itemKey));
+
+        Registry.register(BuiltInRegistries.ITEM, itemKey, item);
+
+        return item;
+    }
+
+    public static void init() {
+        TheStaffAwakens.LOGGER.info("Registering ModItems!");
     }
 }

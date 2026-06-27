@@ -14,6 +14,9 @@
 
 package net.dulidanci.thestaffawakens;
 
+import net.dulidanci.thestaffawakens.block.ModBlocks;
+import net.dulidanci.thestaffawakens.item.ModItemGroups;
+import net.dulidanci.thestaffawakens.item.ModItems;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -27,5 +30,9 @@ public class TheStaffAwakens implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Hello Fabric world!");
+
+		ModItems.init();
+		ModItemGroups.init();
+		ModBlocks.init();
 	}
 }

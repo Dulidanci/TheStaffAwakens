@@ -12,7 +12,7 @@
 		"sources": "https://github.com/Dulidanci/TheStaffAwakens"
 	},
 	"license": "Apache 2.0",
-	"icon": "assets/thestaffawakens/icon.png",
+	"icon": "icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [

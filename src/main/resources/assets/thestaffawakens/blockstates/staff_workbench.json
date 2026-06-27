@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "thestaffawakens:block/staff_workbench",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "thestaffawakens:block/staff_workbench"
+    },
+    "facing=south": {
+      "model": "thestaffawakens:block/staff_workbench",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "thestaffawakens:block/staff_workbench",
+      "y": 270
+    }
+  }
+}
