@@ -1,6 +1,40 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "thestaffawakens:item/perfected_staff"
+    "type": "minecraft:select",
+    "property": "minecraft:display_context",
+    "cases": [
+      {
+        "when": "gui",
+        "model": {
+          "type": "minecraft:model",
+          "model": "thestaffawakens:item/perfected_staff_2d"
+        }
+      },
+      {
+        "when": "fixed",
+        "model": {
+          "type": "minecraft:model",
+          "model": "thestaffawakens:item/perfected_staff_2d"
+        }
+      },
+      {
+        "when": "on_shelf",
+        "model": {
+          "type": "minecraft:model",
+          "model": "thestaffawakens:item/perfected_staff_2d"
+        }
+      },
+      {
+        "when": "head",
+        "model": {
+          "type": "minecraft:model",
+          "model": "thestaffawakens:item/perfected_staff_2d"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "thestaffawakens:item/perfected_staff_3d"
+    }
   }
 }
