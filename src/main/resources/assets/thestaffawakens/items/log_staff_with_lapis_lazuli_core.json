@@ -1,0 +1,46 @@
+{
+  "model": {
+    "type": "minecraft:composite",
+    "models": [
+      {
+        "type": "minecraft:select",
+        "property": "minecraft:display_context",
+        "cases": [
+          {
+            "when": [
+              "gui",
+              "fixed",
+              "on_shelf",
+              "head"
+            ],
+            "model": {
+              "type": "minecraft:model",
+              "model": "thestaffawakens:item/log_staff_2d"
+            }
+          }
+        ],
+        "fallback": {
+          "type": "minecraft:model",
+          "model": "thestaffawakens:item/log_staff_3d"
+        }
+      },
+      {
+        "type": "minecraft:select",
+        "property": "minecraft:display_context",
+        "cases": [
+          {
+            "when": "gui",
+            "model": {
+              "type": "model",
+              "model": "thestaffawakens:core/log_staff/lapis_lazuli_core_2d"
+            }
+          }
+        ],
+        "fallback": {
+          "type": "minecraft:model",
+          "model": "thestaffawakens:core/log_staff/lapis_lazuli_core_3d"
+        }
+      }
+    ]
+  }
+}

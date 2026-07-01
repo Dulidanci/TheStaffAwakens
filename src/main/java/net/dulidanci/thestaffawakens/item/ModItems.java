@@ -30,6 +30,10 @@ public class ModItems {
             new Item.Properties().stacksTo(1));
     public static final Item PERFECTED_STAFF_WITH_LAPIS_LAZULI_CORE = registerItem("perfected_staff_with_lapis_lazuli_core", StaffItem::new,
             new Item.Properties().stacksTo(1));
+    public static final Item LOG_STAFF = registerItem("log_staff", StaffItem::new,
+            new Item.Properties().stacksTo(1));
+    public static final Item LOG_STAFF_WITH_LAPIS_LAZULI_CORE = registerItem("log_staff_with_lapis_lazuli_core", StaffItem::new,
+            new Item.Properties().stacksTo(1));
 
     private static <T extends Item> T registerItem(String name, Function<Item.Properties, T> itemFactory, Item.Properties settings) {
         ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(TheStaffAwakens.MOD_ID, name));

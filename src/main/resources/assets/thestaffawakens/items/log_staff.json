@@ -1,0 +1,24 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:display_context",
+    "cases": [
+      {
+        "when": [
+          "gui",
+          "fixed",
+          "on_shelf",
+          "head"
+        ],
+        "model": {
+          "type": "minecraft:model",
+          "model": "thestaffawakens:item/log_staff_2d"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "thestaffawakens:item/log_staff_3d"
+    }
+  }
+}
