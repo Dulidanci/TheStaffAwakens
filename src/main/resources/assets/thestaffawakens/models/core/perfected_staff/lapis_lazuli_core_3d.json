@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/lapis_block",
   "textures": {
     "all": "minecraft:block/lapis_block"
   },
