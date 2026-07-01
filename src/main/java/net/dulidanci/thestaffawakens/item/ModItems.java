@@ -28,6 +28,8 @@ import java.util.function.Function;
 public class ModItems {
     public static final Item PERFECTED_STAFF = registerItem("perfected_staff", StaffItem::new,
             new Item.Properties().stacksTo(1));
+    public static final Item PERFECTED_STAFF_WITH_LAPIS_LAZULI_CORE = registerItem("perfected_staff_with_lapis_lazuli_core", StaffItem::new,
+            new Item.Properties().stacksTo(1));
 
     private static <T extends Item> T registerItem(String name, Function<Item.Properties, T> itemFactory, Item.Properties settings) {
         ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(TheStaffAwakens.MOD_ID, name));

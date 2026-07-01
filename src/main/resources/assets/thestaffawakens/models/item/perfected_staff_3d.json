@@ -88,7 +88,7 @@
     },
     "ground": {
       "rotation": [90, 0, 0],
-      "translation": [7.5, 0, -3],
+      "translation": [7.5, -7.5, -3],
       "scale": [1, 1, 1]
     }
   }

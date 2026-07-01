@@ -4,28 +4,12 @@
     "property": "minecraft:display_context",
     "cases": [
       {
-        "when": "gui",
-        "model": {
-          "type": "minecraft:model",
-          "model": "thestaffawakens:item/perfected_staff_2d"
-        }
-      },
-      {
-        "when": "fixed",
-        "model": {
-          "type": "minecraft:model",
-          "model": "thestaffawakens:item/perfected_staff_2d"
-        }
-      },
-      {
-        "when": "on_shelf",
-        "model": {
-          "type": "minecraft:model",
-          "model": "thestaffawakens:item/perfected_staff_2d"
-        }
-      },
-      {
-        "when": "head",
+        "when": [
+          "gui",
+          "fixed",
+          "on_shelf",
+          "head"
+        ],
         "model": {
           "type": "minecraft:model",
           "model": "thestaffawakens:item/perfected_staff_2d"

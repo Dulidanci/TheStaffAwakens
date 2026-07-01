@@ -35,6 +35,7 @@ public class ModItemGroups {
             .title(Component.translatable("item_group." + TheStaffAwakens.MOD_ID + ".the_staff_awakens_tab"))
             .displayItems((_, output) -> {
                 output.accept(ModItems.PERFECTED_STAFF);
+                output.accept(ModItems.PERFECTED_STAFF_WITH_LAPIS_LAZULI_CORE);
 
                 output.accept(ModBlocks.BLUEPRINT_PLANKS.asItem());
                 output.accept(ModBlocks.STAFF_WORKBENCH.asItem());
